@@ -17,6 +17,11 @@ TODO:
 * create data structure for managing FS structure in memmory
 * follow links (folders support)
 
+# Required libs
+* libfuse (fuse3)
+* libcurl
+* libxml2
+
 # Compiling
 ```
 cd wwwfs
