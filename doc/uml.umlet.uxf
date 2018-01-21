@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>342</x>
+      <y>369</y>
+      <w>216</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>Controller
+--
+- _container : ContentContainer
+--
++ getAttr()
++ lookup()
++ open()
++ read()
++ readDir()
+
+_+ get() : *Controller_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>882</x>
+      <y>621</y>
+      <w>279</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>/SyncAction/
+--
+- controller : *Controller
+--
+#finishWithError(error)
+#finishWithAttr(attr, timeout)
+#finishWithEntry(entry)
+#finishWithOpen(file_info)
+#finishWithBuffer(data)
+
+cotroller() : *Controller
+contentContainer() : *ContentContainer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1098</x>
+      <y>909</y>
+      <w>153</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>/AsyncAction/
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>711</x>
+      <y>909</y>
+      <w>108</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>GetAttrAction</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>837</x>
+      <y>909</y>
+      <w>108</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>LookupAction</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>963</x>
+      <y>909</y>
+      <w>108</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>OpenAction</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1062</x>
+      <y>1035</y>
+      <w>108</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>ReadAction</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1197</x>
+      <y>1035</y>
+      <w>108</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>ReadDirAction</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1008</x>
+      <y>774</y>
+      <w>189</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;190.0;70.0;190.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>774</y>
+      <w>279</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>290.0;10.0;290.0;70.0;10.0;70.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>882</x>
+      <y>774</y>
+      <w>153</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;150.0;70.0;10.0;70.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1008</x>
+      <y>774</y>
+      <w>27</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1161</x>
+      <y>954</y>
+      <w>108</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;100.0;50.0;100.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1107</x>
+      <y>954</y>
+      <w>81</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;70.0;50.0;10.0;50.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>396</y>
+      <w>243</w>
+      <h>450</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Uses concreate actions</panel_attributes>
+    <additional_attributes>180.0;480.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>27</x>
+      <y>333</y>
+      <w>180</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>main.cpp
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>198</x>
+      <y>369</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+via fuse context</panel_attributes>
+    <additional_attributes>160.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>153</y>
+      <w>315</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>ContentContainer
+--
+- items : Container&lt;ContentItem *&gt;
+--
++ getByID(id) : *ContentItem
++ getFileByID(id) : *File
++ getFolderByID(id) : *Folder
++ getByUrl(url) : *ContentItem
+
++ beginAdd(parent: *Folder) : *RendererBase</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>675</x>
+      <y>531</y>
+      <w>684</w>
+      <h>558</h>
+    </coordinates>
+    <panel_attributes>Actions
+--
+layer=-1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>666</x>
+      <y>99</y>
+      <w>1170</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>FS
+--
+layer=-1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1458</x>
+      <y>549</y>
+      <w>657</w>
+      <h>468</h>
+    </coordinates>
+    <panel_attributes>HTTP
+--
+layer=-1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>828</x>
+      <y>153</y>
+      <w>189</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>/ContentItem/
+--
++ name : QString
++ parent : *Folder
++ url : QUrl
++ isLoaded : bool
++ nodeID : fuse_ino_t
+--
++ wfuse_stat() : *struct stat</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1008</x>
+      <y>171</y>
+      <w>90</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=*</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>963</x>
+      <y>360</y>
+      <w>162</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>File
+--
++ size : size_t
++ content : QByteArray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>684</x>
+      <y>360</y>
+      <w>252</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Folder
+--
++ contents : List&lt;*ContentItem&gt;
+--
+getByName(name) : *ContentItem</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>792</x>
+      <y>279</y>
+      <w>153</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;150.0;50.0;10.0;50.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>918</x>
+      <y>279</y>
+      <w>144</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;140.0;50.0;140.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1458</x>
+      <y>144</y>
+      <w>288</w>
+      <h>207</h>
+    </coordinates>
+    <panel_attributes>/RendererBase/
+--
+--
++ addItem(item : HttpItem) : *ContentItem
+
+# nextID() : fuse_ino_t
+# addContent(item)
+# getUniqueName(suggested : QString)
+# hasName(name)
+# hasUrlInParent(url)
+
+/# isFolder(item : HttpItem)/
+/# createFile(item : HttpItem)/
+/# createFolder(item : HttpItem)/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1638</x>
+      <y>0</y>
+      <w>243</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Converts HTTP items to FS items.
+May have configurable filename
+rendering options.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1359</x>
+      <y>396</y>
+      <w>225</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>HumanReadableRenderer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1458</x>
+      <y>342</y>
+      <w>144</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>140.0;10.0;140.0;40.0;10.0;40.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1386</x>
+      <y>171</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1629</x>
+      <y>54</y>
+      <w>108</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;100.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>0</y>
+      <w>639</w>
+      <h>423</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>690.0;170.0;640.0;10.0;60.0;10.0;10.0;450.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1890</x>
+      <y>594</y>
+      <w>144</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>HttpItem
+--
++ htmlTag : QString
++ title : QString
++ alt : QString
++ url : QUrl
++ size : size_t
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1611</x>
+      <y>396</y>
+      <w>189</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>FilenameBasedRenderer
+fg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1575</x>
+      <y>342</y>
+      <w>135</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;130.0;40.0;130.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1737</x>
+      <y>207</y>
+      <w>234</w>
+      <h>405</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>240.0;430.0;180.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1503</x>
+      <y>603</y>
+      <w>135</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>HttpClient
+--
+--
+fg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1503</x>
+      <y>783</y>
+      <w>135</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Parser
+--
+--
+fg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>162</x>
+      <y>198</y>
+      <w>180</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>ConfigurationManager
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>0</x>
+      <y>225</y>
+      <w>270</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Initialized from command line arguments</panel_attributes>
+    <additional_attributes>210.0;10.0;80.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>333</x>
+      <y>198</y>
+      <w>180</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=used globally</panel_attributes>
+    <additional_attributes>10.0;10.0;180.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>405</x>
+      <y>306</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>QThread
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>441</x>
+      <y>324</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>981</x>
+      <y>558</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>/QObject/
+
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1017</x>
+      <y>576</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+</diagram>

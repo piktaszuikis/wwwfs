@@ -1,4 +1,0 @@
-AC_INIT(wwwfs)
-AC_CONFIG_SRCDIR([main.c])
-AC_PROG_CC
-AC_OUTPUT(Makefile)
