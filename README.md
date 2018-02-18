@@ -11,7 +11,7 @@ There are other projects that are trying to achieve something simmilar, but thes
 
 Currently project works only with my own localhost server, because HTML parser is not yet implemented and I had to hardcode parsed elements manually. Cache is mocked too, no real implementation yet. Most likely I will have to rewrite it to handle identical parallel requests better.
 
-~~ Currently project serves only two hardcoded files. As of now http(s) client side and parser is missing. Http client will be finished on next free weekend. ~~
+~~Currently project serves only two hardcoded files. As of now http(s) client side and parser is missing. Http client will be finished on next free weekend.~~
 
 Proof of concept was rewritten to support async lowlevel api and now depends only on fuse and qt.
 
