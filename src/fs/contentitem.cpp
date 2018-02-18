@@ -2,7 +2,7 @@
 #include "folder.h"
 
 ContentItem::ContentItem(fuse_ino_t node_id, QString name, QUrl url)
-	: _parent(0), _nodeID(node_id), _name(name), _url(url), _cachedStat(0)
+	: _nodeID(node_id), _cachedStat(0), _name(name), _url(url), _parent(0)
 {
 
 }

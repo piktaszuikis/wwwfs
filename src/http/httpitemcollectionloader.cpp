@@ -118,9 +118,9 @@ void HttpItemCollectionLoader::setItemError(HttpItem *item, QString error)
 	}
 }
 
-void HttpItemCollectionLoader::setContent(QByteArray content)
+void HttpItemCollectionLoader::setContent(QUrl url, QByteArray content)
 {
-	_itemsToLoad = HttpParser::parse(content);
+	_itemsToLoad = HttpParser::parse(url, content);
 	_itemsToLoadCount = _itemsToLoad.count();
 
 	if(_itemsToLoadCount > 0)

@@ -24,7 +24,7 @@ void HttpClient::onGetContent(QUrl url, IContentCallback *callback)
 	{
 		if(_cache->isContentCached(url))
 		{
-			callback->setContent(_cache->getContent(url));
+			callback->setContent(url, _cache->getContent(url));
 		}
 		else
 		{
@@ -49,12 +49,12 @@ void HttpClient::onGetContent2(QUrl url, long long offset, long long size, ICont
 		}
 		else if(size <= 0)
 		{
-			callback->setContent(QByteArray());
+			callback->setContent(url, QByteArray());
 
 		}
 		else if(_cache->isContentCached(url, offset, size))
 		{
-			callback->setContent(_cache->getContent(url, offset, size));
+			callback->setContent(url, _cache->getContent(url, offset, size));
 		}
 		else
 		{
@@ -111,7 +111,7 @@ void HttpClient::handleContentReply()
 				QByteArray data = reply->readAll();
 
 				_cache->cacheContent(url, 0, data);
-				callback->setContent(data);
+				callback->setContent(url, data);
 			}
 			else
 			{
@@ -157,13 +157,13 @@ void HttpClient::handlePartialContentReply()
 				if(_cache->isRangeSupported(url))
 				{
 					_cache->cacheContent(url, offset, data);
-					callback->setContent(data);
+					callback->setContent(url, data);
 				}
 				else
 				{
 					_cache->cacheContent(url, 0, data);
 
-					callback->setContent(data.mid(offset, size));
+					callback->setContent(url, data.mid(offset, size));
 				}
 			}
 			else

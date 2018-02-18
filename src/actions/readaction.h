@@ -10,12 +10,8 @@ public:
 	ReadAction(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi, Controller *controller);
 
 public:
-	void setContent(QByteArray content) override;
+	void setContent(QUrl url, QByteArray content) override;
 	void setError(QString error) override;
-
-private:
-	size_t _size;
-	off_t _off;
 
 };
 

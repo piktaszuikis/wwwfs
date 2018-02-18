@@ -2,7 +2,7 @@
 #include <QDebug>
 
 ReadAction::ReadAction(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, fuse_file_info *fi, Controller *controller)
-	: AsyncAction(req, controller), _size(size), _off(off)
+	: AsyncAction(req, controller)
 {
 	Q_UNUSED(fi);
 
@@ -13,8 +13,9 @@ ReadAction::ReadAction(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, f
 		finishWithError(ENOENT);
 }
 
-void ReadAction::setContent(QByteArray content)
+void ReadAction::setContent(QUrl url, QByteArray content)
 {
+	Q_UNUSED(url)
 	finishWithBuffer(content);
 }
 

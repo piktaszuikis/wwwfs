@@ -22,7 +22,7 @@ signals:
 
 public slots:
 	// IContentCallback interface
-	void setContent(QByteArray content) override;
+	void setContent(QUrl url, QByteArray content) override;
 	void setError(QString error) override;
 
 protected:

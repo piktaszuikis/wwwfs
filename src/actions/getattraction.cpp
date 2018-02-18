@@ -4,6 +4,8 @@
 GetAttrAction::GetAttrAction(fuse_req_t req, fuse_ino_t ino, fuse_file_info *fi, Controller *controller)
 	: SyncAction(req, controller)
 {
+	Q_UNUSED(fi);
+
 	ContentItem *item = contentContainer()->getByID(ino);
 
 	if(item)

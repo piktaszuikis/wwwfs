@@ -20,9 +20,8 @@ protected:
 	//void onLoaded(ContentItem *item) override;
 
 private:
-	size_t _size;
 	off_t _off;
-
+	size_t _size;
 };
 
 #endif // READDIRACTION_H

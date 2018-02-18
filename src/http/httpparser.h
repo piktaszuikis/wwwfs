@@ -9,7 +9,7 @@
 
 namespace HttpParser
 {
-	QList<HttpItem *> parse(QByteArray html);
+	QList<HttpItem *> parse(const QUrl &url, QByteArray html);
 }
 
 #endif // HTTPPARSER_H

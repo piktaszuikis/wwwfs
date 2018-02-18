@@ -28,9 +28,8 @@ protected:
 
 private:
 	fuse_req_t _req;
-	Controller *_controller;
 	bool _isFinished;
-
+	Controller *_controller;
 };
 
 #endif // ACTION_H

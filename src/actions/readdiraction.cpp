@@ -4,6 +4,8 @@
 ReadDirAction::ReadDirAction(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, fuse_file_info *fi, Controller *controller)
 	: AsyncAction(req, controller), _off(off), _size(size)
 {
+	Q_UNUSED(fi);
+
 	if(off < 0)
 	{
 		finishWithBuffer(nullptr, 0);
