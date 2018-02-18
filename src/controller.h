@@ -3,6 +3,7 @@
 
 #include <QThread>
 #include <fuse_lowlevel.h>
+#include "http/httpclient.h"
 #include "fs/contentcontainer.h"
 
 class Controller : public QThread
@@ -17,6 +18,7 @@ public:
 
 
 	inline ContentContainer *contentContainer() const { return _content; }
+	inline HttpClient * http() const { return _http; }
 
 	static Controller *get(fuse_req_t req);
 	static Controller *get(void *userdata);
@@ -26,6 +28,7 @@ protected:
 
 private:
 	ContentContainer *_content;
+	HttpClient *_http;
 
 };
 

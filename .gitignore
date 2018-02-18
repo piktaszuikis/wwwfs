@@ -1,4 +1,5 @@
 .directory
 CMakeLists.txt.user
 build/
+build2/
 *.o

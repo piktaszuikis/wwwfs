@@ -5,11 +5,3 @@ AsyncAction::AsyncAction(fuse_req_t req, Controller *thread)
 {
 	moveToThread(thread);
 }
-
-void AsyncAction::loaded(ContentItem *item)
-{
-	if(item)
-		onLoaded(item);
-	else
-		finishWithError(ECOMM);
-}

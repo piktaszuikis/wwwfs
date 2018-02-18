@@ -2,7 +2,7 @@
 #include "folder.h"
 
 ContentItem::ContentItem(fuse_ino_t node_id, QString name, QUrl url)
-	: _parent(0), _nodeID(node_id), _name(name), _url(url), _isLoaded(false), _cachedStat(0)
+	: _parent(0), _nodeID(node_id), _name(name), _url(url), _cachedStat(0)
 {
 
 }
@@ -36,16 +36,6 @@ QUrl ContentItem::getUrl() const
 void ContentItem::setUrl(const QUrl url)
 {
 	_url = url;
-}
-
-bool ContentItem::isLoaded() const
-{
-	return _isLoaded;
-}
-
-void ContentItem::setIsLoaded(const bool isLoaded)
-{
-	_isLoaded = isLoaded;
 }
 
 fuse_ino_t ContentItem::nodeID() const

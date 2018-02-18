@@ -7,7 +7,7 @@
 #include "actions/readdiraction.h"
 
 Controller::Controller()
-	: _content(0)
+	: _content(0), _http(0)
 {
 
 }
@@ -63,6 +63,13 @@ Controller *Controller::get(void *userdata)
 void Controller::run()
 {
 	_content = new ContentContainer();
+	_http = new HttpClient();
+
+
+
+
+
+	/*
 
 	//TODO: remove
 	Folder *root = _content->getFolderByID(FUSE_ROOT_ID);
@@ -82,6 +89,7 @@ void Controller::run()
 		file->setIsLoaded(true);
 
 	}
+*/
 
 	exec();
 }

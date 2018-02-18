@@ -13,12 +13,16 @@ public:
 	Folder *addContent(ContentItem * item);
 	ContentItem *getByName(QString name);
 
+	bool isLoaded() const;
+	void setIsLoaded(const bool isLoaded);
+
 	void clearCache();
 	QByteArray wfuse_get_direntries();
 
 private:
 	QList<ContentItem *> _contents;
 	QByteArray _fuseDirentryCache;
+	bool _isLoaded;
 
 	// ContentItem interface
 protected:

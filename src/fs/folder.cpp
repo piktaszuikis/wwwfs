@@ -24,7 +24,8 @@ struct FuseDirEntryBuf
 	~FuseDirEntryBuf(){ delete name; }
 };
 
-Folder::Folder(fuse_ino_t node_id, QString name, QUrl url) : ContentItem(node_id, name, url)
+Folder::Folder(fuse_ino_t node_id, QString name, QUrl url)
+	: ContentItem(node_id, name, url), _isLoaded(false)
 {
 
 }
@@ -62,6 +63,16 @@ ContentItem *Folder::getByName(QString name)
 	};
 
 	return 0;
+}
+
+bool Folder::isLoaded() const
+{
+	return _isLoaded;
+}
+
+void Folder::setIsLoaded(const bool isLoaded)
+{
+	_isLoaded = isLoaded;
 }
 
 void Folder::clearCache()

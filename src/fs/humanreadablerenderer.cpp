@@ -9,7 +9,7 @@ HumanReadableRenderer::HumanReadableRenderer(ContentContainer *container, Folder
 
 bool HumanReadableRenderer::isFolder(HttpItem *item)
 {
-	return item->getHtmlTag() == "a";
+	return item->getMime() == "text/html";
 }
 
 ContentItem *HumanReadableRenderer::createFile(HttpItem *item)

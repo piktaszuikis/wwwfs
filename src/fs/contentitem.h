@@ -21,9 +21,6 @@ public:
 	QUrl getUrl() const;
 	void setUrl(const QUrl url);
 
-	bool isLoaded() const;
-	void setIsLoaded(const bool isLoaded);
-
 	fuse_ino_t nodeID() const;
 
 	void wfuse_stat(struct stat *st);
@@ -38,7 +35,6 @@ protected:
 
 private:
 	struct stat *_cachedStat;
-	bool _isLoaded;
 	QString _name;
 	QUrl _url;
 	Folder *_parent;

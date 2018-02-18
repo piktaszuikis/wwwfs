@@ -7,14 +7,15 @@ add_definitions(-DFUSE_USE_VERSION=31)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt5Core)
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Network REQUIRED)
 
 file(GLOB_RECURSE HEADERS *.h)
 file(GLOB_RECURSE SOURCES *.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} Qt5::Core)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Network)
 
 find_package(PkgConfig REQUIRED)
 pkg_search_module(FUSE3 REQUIRED fuse3)
