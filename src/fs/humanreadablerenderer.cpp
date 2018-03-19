@@ -14,8 +14,6 @@ bool HumanReadableRenderer::isFolder(HttpItem *item)
 
 ContentItem *HumanReadableRenderer::createFile(HttpItem *item)
 {
-	//getting size should probably be done in async manier...
-
 	return new File(nextID(), getName(item), item->getSize(), item->getUrl());
 }
 

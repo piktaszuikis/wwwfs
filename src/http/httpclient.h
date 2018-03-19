@@ -3,9 +3,10 @@
 
 #include <QNetworkAccessManager>
 
+#include "icallback.h"
 #include "contentcache.h"
 #include "icontentcallback.h"
-#include "ifileinfocallback.h"
+#include "remoteresourceinfo.h"
 
 class HttpClient : public QObject
 {
@@ -13,28 +14,16 @@ class HttpClient : public QObject
 public:
 	explicit HttpClient(QObject *parent = nullptr);
 
-signals:
-	void getContent(QUrl url, IContentCallback *callback);
-	void getContent2(QUrl url, long long offset, long long size, IContentCallback *callback);
-	void getContentInfo(QUrl url, IFileInfoCallback *callback);
-
-private slots:
-	void onGetContent(QUrl url, IContentCallback *callback);
-	void onGetContent2(QUrl url, long long offset, long long size, IContentCallback *callback);
-	void onGetContentInfo(QUrl url, IFileInfoCallback *callback);
-
-	void handleContentReply();
-	void handlePartialContentReply();
-	void handleInfoReply();
+	void get(QUrl url, ICallbackWithArgument<QByteArray> *callback);
+	void get(QUrl url, qlonglong offset, qlonglong size, ICallbackWithArgument<QByteArray> *callback);
+	void getInfo(QUrl url, ICallbackWithArgument<RemoteResourceInfo *> *callback);
 
 private:
-	bool isRangeSupported(QNetworkReply *reply);
-	QString mime(QNetworkReply *reply);
+	void getContent(QUrl url, qlonglong offset, qlonglong size, ICallbackWithArgument<QByteArray> *callback, QNetworkReply *reply);
+	void getInfoFromContent(QUrl url, ICallbackWithArgument<RemoteResourceInfo *> *callback);
+	void getInfoFromContent(QUrl url, ICallbackWithArgument<RemoteResourceInfo *> *callback, QNetworkReply *reply);
 
-	template<typename T> T *callback(QNetworkReply *reply);
-	size_t size(QNetworkReply *reply);
-	off_t offset(QNetworkReply *reply);
-
+private:
 	QNetworkAccessManager *_manager;
 	ContentCache *_cache;
 };

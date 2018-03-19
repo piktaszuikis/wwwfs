@@ -1,13 +1,20 @@
 #include "syncaction.h"
 
 SyncAction::SyncAction(fuse_req_t req, Controller *controller)
-	:_req(req), _isFinished(false), _controller(controller)
+	:_req(req), _isFinished(false), _asyncStarted(false), _controller(controller)
 {
 	if(!controller)
 	{
 		finishWithError(EFAULT);
 		throw "Could not create action, because controller is NULL!";
 	}
+}
+
+SyncAction::~SyncAction()
+{
+	_isFinished = true;
+	_controller= nullptr;
+	_req = nullptr;
 }
 
 int SyncAction::finishWithError(int error)
@@ -66,5 +73,27 @@ int SyncAction::finishWithBuffer(QByteArray data)
 		return finishWithBuffer(0, 0);
 
 	return finishWithBuffer(data.constData(), data.size());
+}
+
+void SyncAction::startAsync()
+{
+	if(_asyncStarted)
+		return;
+	_asyncStarted = true;
+
+	moveToThread(controller());
+	connect(this, &SyncAction::_doStartAsync, this, &SyncAction::doRunAsync, Qt::QueuedConnection);
+	emit _doStartAsync();
+}
+
+void SyncAction::doRunAsync()
+{
+	disconnect(this, &SyncAction::_doStartAsync, this, &SyncAction::doRunAsync);
+	asyncAction();
+}
+
+void SyncAction::asyncAction()
+{
+
 }
 

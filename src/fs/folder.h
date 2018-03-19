@@ -8,6 +8,7 @@ class Folder : public ContentItem
 {
 public:
 	Folder(fuse_ino_t node_id, QString name, QUrl url);
+	virtual ~Folder();
 
 	const QList<ContentItem *> contents() const;
 	Folder *addContent(ContentItem * item);
@@ -24,7 +25,6 @@ private:
 	QByteArray _fuseDirentryCache;
 	bool _isLoaded;
 
-	// ContentItem interface
 protected:
 	void wfuse_apply_stat(struct stat *st) override;
 

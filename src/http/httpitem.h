@@ -7,8 +7,7 @@
 class HttpItem
 {
 public:
-	HttpItem();
-	HttpItem(QString htmlTag, QString title, QString alt, QUrl url, size_t size);
+	HttpItem(QString htmlTag, QString title, QString alt, QUrl url);
 
 	inline QString getHtmlTag() const { return _htmlTag; }
 	inline QString getTitle() const { return _title; }

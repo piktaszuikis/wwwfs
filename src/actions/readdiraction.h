@@ -1,27 +1,27 @@
 #ifndef READDIRACTION_H
 #define READDIRACTION_H
 
-#include "asyncaction.h"
+#include "syncaction.h"
 
-class ReadDirAction : public AsyncAction
+class ReadDirAction : public SyncAction
 {
 	Q_OBJECT
 
 public:
 	ReadDirAction(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi, Controller *controller);
-
-	// AsyncAction interface
-
-public slots:
-	void loaded(Folder *folder);
-	void loadFailed(Folder *folder);
+	virtual ~ReadDirAction();
 
 protected:
-	//void onLoaded(ContentItem *item) override;
+	virtual void asyncAction() override;
+
+private:
+	void success();
+	void error(QString error);
 
 private:
 	off_t _off;
 	size_t _size;
+	Folder *_folder;
 };
 
 #endif // READDIRACTION_H

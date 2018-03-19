@@ -10,6 +10,12 @@
 #include "fs/contentcontainer.h"
 #include "controller.h"
 
+#include "callbackwithargument.h"
+
+
+#include "http/cache/cacheditem.h"
+
+
 #define MAX_TIMEOUT 10000
 
 static void hello_ll_getattr2(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi)
@@ -156,9 +162,89 @@ static void init(void *userdata, struct fuse_conn_info *)
 	Controller::get(userdata)->start();
 }
 
+
+
+
+
+
+class AA
+{
+public:
+	AA(){}
+	int k;
+
+	void msg(QString msg){
+		qDebug() << "MSG<" << msg << k++;
+	}
+
+	void error(QString err){
+		qDebug() << "ERROR:" << err << k++;
+	}
+
+	ICallbackWithArgument<QString>* create(){
+		return new CallbackWithArgument<AA, QString>(this, &AA::msg, &AA::error);
+	}
+};
+
+
 int main(int argc, char *argv[])
 {
+/*
+	CachedItem * item = new CachedItem();
+
+	item->cacheData(2, QByteArray("234"));
+//	item->cacheData(0, QByteArray("1234"));
+	//item->cacheData(7, QByteArray("89"));
+	//item->cacheData(0, QByteArray("123456"));
+	//item->cacheData(4, QByteArray("5678"));
+
+	//item->remove(3);
+
+	qDebug() << item->isDataCached(0, 1)
+			 << item->isDataCached(1, 1)
+			 << item->isDataCached(1, 2)
+
+			 << item->isDataCached(4, 2)
+			 << item->isDataCached(5, 2)
+			 << item->isDataCached(6, 1)
+				;
+
+	qDebug()
+			<< item->isDataCached(2, 3)
+
+			<< item->isDataCached(3, 1)
+			<< item->isDataCached(3, 2)
+			<< item->isDataCached(2, 1)
+
+			   ;
+
+	return 0;
+*/
 	QCoreApplication app(argc, argv);
+
+	//QThread::sleep(2);
+/*
+	AA *a = new AA();
+	ICallbackWithArgument<QString> *clb = a->create();
+
+	clb->success("ar veikai?");
+	//clb->error("asdf");
+
+	return 0;
+*/
+
+/*
+	auto p = aa();
+
+	p.then([&app](){
+		qDebug() << "OK";
+
+		app.quit();
+	});
+
+	return app.exec();
+*/
+
 	struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
 
 	struct fuse_cmdline_opts opts;

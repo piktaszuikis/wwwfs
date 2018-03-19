@@ -16,6 +16,22 @@ namespace ConfigurationManager
 	QUrl rootUrl()
 	{
 		return QUrl("http://127.0.0.1/");
+		//return QUrl("http://anime-fanservice.org/coppermine/albums/C_galleries/");
+	}
+
+	int sampleSize()
+	{
+		return 1024 * 500; //500KB
+	}
+
+	long cacheRamSize()
+	{
+		return 1024L * 1024 * 50; //50MB
+	}
+
+	long cacheRamLength()
+	{
+		return 1000;
 	}
 
 

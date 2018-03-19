@@ -2,9 +2,15 @@
 #include "folder.h"
 
 ContentItem::ContentItem(fuse_ino_t node_id, QString name, QUrl url)
-	: _nodeID(node_id), _cachedStat(0), _name(name), _url(url), _parent(0)
+	: _nodeID(node_id), _cachedStat(nullptr), _name(name), _url(url), _parent(nullptr)
 {
 
+}
+
+ContentItem::~ContentItem()
+{
+	delete _cachedStat;
+	_parent = nullptr;
 }
 
 QString ContentItem::name() const
@@ -59,13 +65,15 @@ void ContentItem::clearCache()
 	if(parent())
 		parent()->clearCache();
 
-	delete _cachedStat;
-	_cachedStat = 0;
+	//_cachedStat never changes
+	//delete _cachedStat;
+	//_cachedStat = 0;
 }
 
 struct stat *ContentItem::wfuse_stat()
 {
-	if(!_cachedStat){
+	if(!_cachedStat)
+	{
 		_cachedStat = new struct stat();
 		wfuse_apply_stat(_cachedStat);
 	}

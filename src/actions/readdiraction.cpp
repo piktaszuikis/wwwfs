@@ -1,8 +1,9 @@
 #include "readdiraction.h"
-#include "../http/httpitemcollectionloader.h"
+#include "../http/htmlloader.h"
+#include "callback.h"
 
 ReadDirAction::ReadDirAction(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, fuse_file_info *fi, Controller *controller)
-	: AsyncAction(req, controller), _off(off), _size(size)
+	: SyncAction(req, controller), _off(off), _size(size), _folder(0)
 {
 	Q_UNUSED(fi);
 
@@ -12,37 +13,41 @@ ReadDirAction::ReadDirAction(fuse_req_t req, fuse_ino_t ino, size_t size, off_t 
 		return;
 	}
 
-	Folder *folder = contentContainer()->getFolderByID(ino);
-	if(folder)
+	_folder = contentContainer()->getFolderByID(ino);
+	if(_folder)
 	{
-		if(folder->isLoaded())
-		{
-			loaded(folder);
-		}
+		if(_folder->isLoaded())
+			success();
 		else
-		{
-			HttpItemCollectionLoader *loader = new HttpItemCollectionLoader(folder, controller, this);
-			connect(loader, &HttpItemCollectionLoader::loaded, this, &ReadDirAction::loaded);
-			connect(loader, &HttpItemCollectionLoader::error, this, &ReadDirAction::loadFailed);
+			startAsync();
 
-			emit controller->http()->getContent(folder->getUrl(), loader);
-		}
+		return;
 	}
-	else
-	{
-		finishWithError(ENOTDIR);
-	}
+
+	finishWithError(ENOTDIR);
 }
 
-void ReadDirAction::loaded(Folder *folder)
+ReadDirAction::~ReadDirAction()
 {
-	auto entries = folder->wfuse_get_direntries();
+	_folder = nullptr;
+	_off = 0;
+	_size = 0;
+}
 
-	if(folder)
+void ReadDirAction::asyncAction()
+{
+	new HtmlLoader(new Callback<ReadDirAction>(this, &ReadDirAction::success, &ReadDirAction::error), _folder, controller(), this);
+}
+
+void ReadDirAction::success()
+{
+	if(_folder)
 	{
+		auto entries = _folder->wfuse_get_direntries();
+
 		if(!entries.isEmpty())
 		{
-			if(_off == 0 && _size > entries.size())
+			if(_off == 0 && _size > (size_t)entries.size())
 			{
 				finishWithBuffer(entries.constData(), entries.size());
 			}
@@ -63,37 +68,8 @@ void ReadDirAction::loaded(Folder *folder)
 	}
 }
 
-void ReadDirAction::loadFailed(Folder *folder)
+void ReadDirAction::error(QString error)
 {
-	if(folder)
-		folder->setIsLoaded(true);
-
+	qWarning() << error;
 	finishWithError(EINVAL);
 }
-
-/*
-
-void ReadDirAction::onLoaded(ContentItem *item)
-{
-	Folder *folder =  dynamic_cast<Folder *>(item);
-
-	auto entries = folder->wfuse_get_direntries();
-
-	if(!entries.isEmpty())
-	{
-		if(_off == 0 && _size > entries.size())
-		{
-			finishWithBuffer(entries.constData(), entries.size());
-		}
-		else
-		{
-			auto data = entries.mid(_off, _size);
-			finishWithBuffer(data);
-		}
-	}
-	else
-	{
-		finishWithBuffer(nullptr, 0);
-	}
-}
-*/

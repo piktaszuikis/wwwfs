@@ -1,7 +1,7 @@
 QT -= gui
 QT += network
 
-CONFIG += c++11 console link_pkgconfig
+CONFIG += c++14 console link_pkgconfig
 CONFIG -= app_bundle
 
 PKGCONFIG += fuse3
@@ -19,7 +19,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += controller.cpp \
 	actions/getattraction.cpp \
-	actions/asyncaction.cpp \
 	actions/readdiraction.cpp \
 	actions/readaction.cpp \
 	actions/syncaction.cpp \
@@ -34,11 +33,14 @@ SOURCES += controller.cpp \
 	fs/rendererbase.cpp \
 	http/httpparser.cpp \
 	http/contentcache.cpp \
-	http/httpitemcollectionloader.cpp \
 	http/httpclient.cpp \
 	http/httpitem.cpp \
 	http/icontentcallback.cpp \
-	main.cpp
+	main.cpp \
+    http/htmlloader.cpp \
+    http/remoteresourceinfo.cpp \
+    http/cache/cacheditem.cpp \
+    http/cache/cachedpiece.cpp
 
 HEADERS += actions/syncaction.h \
 	actions/readdiraction.h \
@@ -46,7 +48,6 @@ HEADERS += actions/syncaction.h \
 	actions/lookupaction.h \
 	actions/getattraction.h \
 	actions/readaction.h \
-	actions/asyncaction.h \
 	configurationmanager.h \
 	fs/humanreadablerenderer.h \
 	fs/folder.h \
@@ -56,16 +57,22 @@ HEADERS += actions/syncaction.h \
 	fs/contentitem.h \
 	http/httpclient.h \
 	http/httpparser.h \
-	http/ifileinfocallback.h \
 	http/httpitem.h \
 	http/icontentcallback.h \
 	http/contentcache.h \
-	http/httpitemcollectionloader.h \
-	controller.h
+	controller.h \
+    http/htmlloader.h \
+    http/remoteresourceinfo.h \
+    callback.h \
+    callbackwithargument.h \
+    icallback.h \
+    callbackwithargumentanddata.h \
+    http/cache/cacheditem.h \
+    http/cache/cachedpiece.h
 
 DEFINES += "FUSE_USE_VERSION=31"
-QMAKE_CXXFLAGS += -Wsign-compare
-
+QMAKE_CXXFLAGS += -Wno-sign-compare
+QMAKE_CXXFLAGS += -Wno-sign-compare
 
 # HTML parser:
 
@@ -75,3 +82,5 @@ INCLUDEPATH += $$PWD/../libs/QGumboParser/QGumboParser
 DEPENDPATH += $$PWD/../libs/QGumboParser/QGumboParser
 
 unix: PRE_TARGETDEPS += $$OUT_PWD/../libs/QGumboParser/QGumboParser/libQGumboParser.a
+
+

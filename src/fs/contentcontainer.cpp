@@ -26,7 +26,7 @@ Folder *ContentContainer::getFolderByID(fuse_ino_t node_id)
 
 ContentItem *ContentContainer::getByUrl(QUrl url)
 {
-	return _urlMap.value(url.adjusted(QUrl::RemoveFragment));
+	return _urlMap.value(url);
 }
 
 QSharedPointer<RendererBase> ContentContainer::beginAdd(Folder *parent)
@@ -39,7 +39,7 @@ void ContentContainer::addContent(ContentItem *item)
 	if(item)
 	{
 		_map.insert(item->nodeID(), item);
-		_urlMap.insert(item->getUrl().adjusted(QUrl::RemoveScheme | QUrl::RemoveFragment), item);
+		_urlMap.insert(item->getUrl(), item);
 	}
 }
 

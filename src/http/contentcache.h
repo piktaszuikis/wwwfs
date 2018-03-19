@@ -4,34 +4,33 @@
 #include <QUrl>
 #include <QHash>
 
+#include "cache/cacheditem.h"
+
 class ContentCache
 {
 public:
 	ContentCache();
 
-	bool isRangeSupportedCached(QUrl url);
-	bool isRangeSupported(QUrl url);
-	bool isSizeCached(QUrl url);
-	bool isMimeCached(QUrl url);
 	bool isContentCached(QUrl url);
 	bool isContentCached(QUrl url, off_t offset, size_t size);
 
-	size_t getSize(QUrl url);
-	QString getMime(QUrl url);
+	bool isResourceInfoCached(QUrl url);
+
 	QByteArray getContent(QUrl url);
 	QByteArray getContent(QUrl url, off_t offset, size_t size);
 
-	void cacheSize(QUrl url, size_t size);
-	void cacheMime(QUrl url, QString mime);
-	void cacheIsRangeSupported(QUrl url, bool isSupported);
-	void cacheContent(QUrl url, off_t offset, QByteArray array);
+	RemoteResourceInfo *getResourceInfo(QUrl url);
+
+	void cacheContent(QUrl url, off_t offset, QByteArray content);
+	void cacheResourceInfo(QUrl url, RemoteResourceInfo *info);
 
 private:
-	QUrl getUrl(QUrl &url);
+	void cleanup();
+	long cachedSize();
+	long removeOldest();
+	void removeSize(long howMuchToRemove);
 
-	QHash<QUrl, size_t> _sizeCache;
-	QHash<QUrl, QString> _mimeCache;
-	QHash<QUrl, QByteArray> _contentCache;
+	QHash<QUrl, CachedItem *> _cache;
 
 };
 

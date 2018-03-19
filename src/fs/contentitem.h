@@ -11,6 +11,7 @@ class Folder;
 {
 public:
 	ContentItem(fuse_ino_t node_id, QString name, QUrl url);
+	virtual ~ContentItem();
 
 	QString name() const;
 	void setName(const QString name);

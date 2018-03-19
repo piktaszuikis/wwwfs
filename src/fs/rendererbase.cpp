@@ -2,15 +2,13 @@
 #include "contentcontainer.h"
 
 RendererBase::RendererBase(ContentContainer *container, Folder *parent)
+	: _container(container), _parent(parent)
 {
 	if(!container)
 		throw "Renderer must own a container!";
 
 	if(!parent)
 		throw "Renderer must own a parent folder!";
-
-	_container = container;
-	_parent = parent;
 }
 
 ContentItem *RendererBase::addItem(HttpItem *item)
@@ -36,8 +34,8 @@ RendererBase::~RendererBase()
 {
 	_parent->setIsLoaded(true);
 
-	_container = 0;
-	_parent = 0;
+	_container = nullptr;
+	_parent = nullptr;
 }
 
 fuse_ino_t RendererBase::nextID()
@@ -55,6 +53,9 @@ ContentItem *RendererBase::addContent(ContentItem *item)
 QString RendererBase::getUniqueName(QString suggested)
 {
 	long long suffix = 0;
+
+	while(suggested.endsWith('/'))
+		suggested.remove(suggested.length() - 1, 1);
 
 	suggested.replace('/', QChar(L'／')); //slashes are not allowed!
 	QString result = suggested;
@@ -79,7 +80,7 @@ bool RendererBase::hasUrlInParent(QUrl url)
 {
 	foreach (ContentItem *item, _parent->contents())
 	{
-		if(item->getUrl().matches(url, QUrl::RemoveScheme | QUrl::RemoveFragment))
+		if(item->getUrl().matches(url, QUrl::RemoveFragment))
 			return true;
 	}
 

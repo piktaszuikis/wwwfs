@@ -11,12 +11,6 @@ size_t File::size() const
 	return _size;
 }
 
-void File::setSize(size_t size)
-{
-	_size = size;
-	//clearCache();
-}
-
 void File::wfuse_apply_stat(struct stat *st)
 {
 	st->st_mode = S_IFREG | (S_IRUSR | S_IRGRP | S_IROTH);

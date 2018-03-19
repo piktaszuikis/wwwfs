@@ -1,5 +1,4 @@
 #include "httpparser.h"
-#include "httpitemcollectionloader.h"
 
 #include <QString>
 #include <QList>
@@ -88,7 +87,7 @@ HttpItem *createFromA(ExtractContext *context, const QGumboNode &node)
 	if(context->wasAdded(url))
 		return nullptr;
 
-	return new HttpItem("a", node.innerText(), node.getAttribute("title"), url, 0);
+	return new HttpItem("a", node.innerText(), node.getAttribute("title"), url);
 }
 
 HttpItem *createFromImg(ExtractContext *context, const QGumboNode &node)
@@ -106,7 +105,7 @@ HttpItem *createFromImg(ExtractContext *context, const QGumboNode &node)
 	if(context->wasAdded(url))
 		return nullptr;
 
-	return new HttpItem("img", node.getAttribute("title"), node.getAttribute("alt"), url, 0);
+	return new HttpItem("img", node.getAttribute("title"), node.getAttribute("alt"), url);
 }
 
 QList<HttpItem *> HttpParser::parse(const QUrl &url, QByteArray html)

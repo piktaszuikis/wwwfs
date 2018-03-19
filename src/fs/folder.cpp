@@ -21,13 +21,26 @@ struct FuseDirEntryBuf
 		item->wfuse_stat(&this->stat);
 	}
 
-	~FuseDirEntryBuf(){ delete name; }
+	~FuseDirEntryBuf()
+	{
+		memset(name, 0, strlen(name));
+		delete name;
+	}
 };
 
 Folder::Folder(fuse_ino_t node_id, QString name, QUrl url)
 	: ContentItem(node_id, name, url), _isLoaded(false)
 {
 
+}
+
+Folder::~Folder()
+{
+	while(!_contents.isEmpty())
+		delete _contents.takeLast();
+
+	_fuseDirentryCache.clear();
+	_isLoaded = false;
 }
 
 const QList<ContentItem *> Folder::contents() const
@@ -119,6 +132,8 @@ QByteArray Folder::wfuse_get_direntries()
 			delete sizeMap.takeFirst();
 
 		_fuseDirentryCache = QByteArray(buf, total_size);
+
+		memset(buf, 0, total_size);
 		delete[] buf;
 	}
 
