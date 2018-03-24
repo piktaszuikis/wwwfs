@@ -16,12 +16,12 @@ public:
 
 	void get(QUrl url, ICallbackWithArgument<QByteArray> *callback);
 	void get(QUrl url, qlonglong offset, qlonglong size, ICallbackWithArgument<QByteArray> *callback);
-	void getInfo(QUrl url, ICallbackWithArgument<RemoteResourceInfo *> *callback);
+	void getInfo(QUrl url, ICallbackWithArgument<QSharedPointer<RemoteResourceInfo> > *callback);
 
 private:
 	void getContent(QUrl url, qlonglong offset, qlonglong size, ICallbackWithArgument<QByteArray> *callback, QNetworkReply *reply);
-	void getInfoFromContent(QUrl url, ICallbackWithArgument<RemoteResourceInfo *> *callback);
-	void getInfoFromContent(QUrl url, ICallbackWithArgument<RemoteResourceInfo *> *callback, QNetworkReply *reply);
+	void getInfoFromContent(QUrl url, ICallbackWithArgument<QSharedPointer<RemoteResourceInfo> > *callback);
+	void getInfoFromContent(QUrl url, ICallbackWithArgument<QSharedPointer<RemoteResourceInfo> > *callback, QNetworkReply *reply);
 
 private:
 	QNetworkAccessManager *_manager;

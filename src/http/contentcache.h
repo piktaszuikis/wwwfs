@@ -19,10 +19,10 @@ public:
 	QByteArray getContent(QUrl url);
 	QByteArray getContent(QUrl url, off_t offset, size_t size);
 
-	RemoteResourceInfo *getResourceInfo(QUrl url);
+	QSharedPointer<RemoteResourceInfo> getResourceInfo(QUrl url);
 
 	void cacheContent(QUrl url, off_t offset, QByteArray content);
-	void cacheResourceInfo(QUrl url, RemoteResourceInfo *info);
+	void cacheResourceInfo(QUrl url, QSharedPointer<RemoteResourceInfo> info);
 
 private:
 	void cleanup();

@@ -8,16 +8,13 @@ CachedItem::CachedItem()
 
 CachedItem::~CachedItem()
 {
-	delete _info;
-	_info = nullptr;
-
 	_lastAccess = QDateTime();
 
 	while(!_data.isEmpty())
 		delete _data.takeLast();
 }
 
-RemoteResourceInfo *CachedItem::info()
+QSharedPointer<RemoteResourceInfo> CachedItem::info()
 {
 	setAccessed();
 	return _info;
@@ -127,7 +124,7 @@ QByteArray CachedItem::data(off_t offset, size_t size)
 		auto data = _data[i++];
 
 		int start = offset > data->offset() ? offset - data->offset() : 0;
-		int len = data->end() < end ? -1 : end - data->offset();
+		int len = data->end() < end ? -1 : end - qMax(offset, data->offset());
 
 		data->setAccessed();
 
@@ -166,13 +163,13 @@ void CachedItem::cacheData(off_t offset, QByteArray data)
 			{
 				if(len >= data.size())
 				{
-					_data.insert(i, new CachedPiece(offset, data));
+					_data.insert(i++, new CachedPiece(offset, data));
 					index += len;
 					break;
 				}
 				else
 				{
-					_data.insert(i, new CachedPiece(offset, data.mid(index, len)));
+					_data.insert(i++, new CachedPiece(offset, data.mid(index, len)));
 				}
 			}
 

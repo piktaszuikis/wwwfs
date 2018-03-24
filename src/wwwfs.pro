@@ -71,8 +71,6 @@ HEADERS += actions/syncaction.h \
     http/cache/cachedpiece.h
 
 DEFINES += "FUSE_USE_VERSION=31"
-QMAKE_CXXFLAGS += -Wno-sign-compare
-QMAKE_CXXFLAGS += -Wno-sign-compare
 
 # HTML parser:
 

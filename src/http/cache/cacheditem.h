@@ -2,8 +2,11 @@
 #define CACHEDITEM_H
 
 #include <QDateTime>
-#include "../remoteresourceinfo.h"
+#include <QSharedPointer>
+
 #include "cachedpiece.h"
+#include "../remoteresourceinfo.h"
+
 
 class CachedItem
 {
@@ -11,8 +14,8 @@ public:
 	CachedItem();
 	virtual ~CachedItem();
 
-	inline void cacheInfo(RemoteResourceInfo *info) { _info = info; }
-	RemoteResourceInfo *info();
+	inline void cacheInfo(QSharedPointer<RemoteResourceInfo> info) { _info = info; }
+	QSharedPointer<RemoteResourceInfo> info();
 
 	bool isDataCachedFully();
 	bool isDataCached(off_t offset, size_t size);
@@ -21,16 +24,17 @@ public:
 	QByteArray data(off_t offset, size_t size);
 
 	void cacheData(off_t offset, QByteArray data);
-	size_t usedMemorySize();
 
+	size_t usedMemorySize();
 	long remove(long memorySizeToRemove);
+
 	inline QDateTime lastAccess() const { return _lastAccess; }
 
 private:
 	inline void setAccessed(){ _lastAccess = QDateTime::currentDateTime(); }
 
 	QDateTime _lastAccess;
-	RemoteResourceInfo *_info;
+	QSharedPointer<RemoteResourceInfo> _info;
 	QList<CachedPiece *> _data;
 
 };

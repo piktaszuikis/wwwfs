@@ -40,7 +40,7 @@ QByteArray ContentCache::getContent(QUrl url, off_t offset, size_t size)
 	return QByteArray();
 }
 
-RemoteResourceInfo *ContentCache::getResourceInfo(QUrl url)
+QSharedPointer<RemoteResourceInfo> ContentCache::getResourceInfo(QUrl url)
 {
 	if(_cache.contains(url))
 		return _cache[url]->info();
@@ -63,7 +63,7 @@ void ContentCache::cacheContent(QUrl url, off_t offset, QByteArray content)
 	cleanup();
 }
 
-void ContentCache::cacheResourceInfo(QUrl url, RemoteResourceInfo *info)
+void ContentCache::cacheResourceInfo(QUrl url, QSharedPointer<RemoteResourceInfo> info)
 {
 	if(ConfigurationManager::cacheRamLength() == 0)
 		return;

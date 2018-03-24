@@ -15,7 +15,7 @@ public:
 
 private:
 	void parseHtml(QByteArray content);
-	void setResourceInfo(RemoteResourceInfo *resource, HttpItem *item);
+	void setResourceInfo(QSharedPointer<RemoteResourceInfo> resource, HttpItem *item);
 	void resourceInfoFailed(QString error, HttpItem *item);
 
 	void tryFinish();

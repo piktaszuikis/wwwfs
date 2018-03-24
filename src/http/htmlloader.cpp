@@ -39,7 +39,7 @@ void HtmlLoader::parseHtml(QByteArray content)
 	{
 		foreach (auto item, _itemsToLoad) {
 			_controller->http()->getInfo(item->getUrl(),
-				new CallbackWithArgumentAndData<HtmlLoader, RemoteResourceInfo*, HttpItem*>(this, item, &HtmlLoader::setResourceInfo, &HtmlLoader::resourceInfoFailed));
+				new CallbackWithArgumentAndData<HtmlLoader, QSharedPointer<RemoteResourceInfo>, HttpItem*>(this, item, &HtmlLoader::setResourceInfo, &HtmlLoader::resourceInfoFailed));
 		}
 	}
 	else
@@ -49,7 +49,7 @@ void HtmlLoader::parseHtml(QByteArray content)
 	}
 }
 
-void HtmlLoader::setResourceInfo(RemoteResourceInfo *resource, HttpItem *item)
+void HtmlLoader::setResourceInfo(QSharedPointer<RemoteResourceInfo> resource, HttpItem *item)
 {
 	if(resource && item)
 	{

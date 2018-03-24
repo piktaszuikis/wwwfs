@@ -9,7 +9,9 @@ There are other projects that are trying to achieve something simmilar, but thes
 
 # Current state
 
-Implemented HTML parsing prototype using [QGumboParser](https://github.com/lagner/QGumboParser). Http client rewritten with Promis-like callbacks. Implemented cache. Everything works 95% of time. There is still probably a bug in caching or http client.
+Implemented HTML parsing prototype using [QGumboParser](https://github.com/lagner/QGumboParser). Http client rewritten with Promis-like callbacks. Implemented cache and tests. By the look of it, everything works fine.
+
+~~Everything works 95% of time. There is still probably a bug in caching or http client.~~
 
 ~~Found a problem: some servers do not return content-length, so http client must be rewritten...~~
 
@@ -24,7 +26,7 @@ Proof of concept was rewritten to support async lowlevel api and now depends onl
 ~~Currently project is in "proof of concept" state. For now it only allows reading files in a very inefficient way and there is no folder support.~~
 
 TODO:
-* Write tests for cache
+* Parameter parsing
 * Support more HTML tags
 * Symlink support
 * create virtual file _index.html for debugging reasons

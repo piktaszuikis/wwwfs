@@ -143,7 +143,7 @@ void HttpClient::get(QUrl url, qlonglong offset, qlonglong size, ICallbackWithAr
 
 }
 
-void HttpClient::getInfo(QUrl url, ICallbackWithArgument<RemoteResourceInfo *> *callback)
+void HttpClient::getInfo(QUrl url, ICallbackWithArgument<QSharedPointer<RemoteResourceInfo> > *callback)
 {
 	if(!url.isValid())
 		throw "ArgumentNullException: url";
@@ -170,7 +170,7 @@ void HttpClient::getInfo(QUrl url, ICallbackWithArgument<RemoteResourceInfo *> *
 
 			if(length.isValid() && !mime.isNull())
 			{
-				RemoteResourceInfo *info = new RemoteResourceInfo(mime, length.value<size_t>());
+				QSharedPointer<RemoteResourceInfo> info(new RemoteResourceInfo(mime, length.value<size_t>()));
 
 				callback->success(info);
 
@@ -213,18 +213,20 @@ void HttpClient::getContent(QUrl url, qlonglong offset, qlonglong size, ICallbac
 	QByteArray *fullData = getFullReplyData(reply);
 	fullData->append(reply->readAll());
 
-	if(fullData->size() >= expectedSize || reply->isFinished())
+	if((fullData->size() >= expectedSize && !isRangeSupported) || reply->isFinished())
 	{
 		_cache->cacheContent(url, isRangeSupported ? offset : 0, *fullData);
 		callback->success(fullData->mid(isRangeSupported ? 0 : offset, size));
 
-		reply->abort();
+		if(!isRangeSupported)
+			reply->abort();
+
 		reply->deleteLater();
 	}
 
 }
 
-void HttpClient::getInfoFromContent(QUrl url, ICallbackWithArgument<RemoteResourceInfo *> *callback)
+void HttpClient::getInfoFromContent(QUrl url, ICallbackWithArgument<QSharedPointer<RemoteResourceInfo> > *callback)
 {
 	QNetworkRequest request = createRequest(url);
 	qDebug() << "[GET]" << url.toString(QUrl::None);
@@ -237,7 +239,7 @@ void HttpClient::getInfoFromContent(QUrl url, ICallbackWithArgument<RemoteResour
 
 }
 
-void HttpClient::getInfoFromContent(QUrl url, ICallbackWithArgument<RemoteResourceInfo *> *callback, QNetworkReply *reply)
+void HttpClient::getInfoFromContent(QUrl url, ICallbackWithArgument<QSharedPointer<RemoteResourceInfo> > *callback, QNetworkReply *reply)
 {
 	if(reply->error() != QNetworkReply::NoError)
 	{
@@ -254,7 +256,7 @@ void HttpClient::getInfoFromContent(QUrl url, ICallbackWithArgument<RemoteResour
 
 	if(!mime.isNull())
 	{
-		RemoteResourceInfo *info = new RemoteResourceInfo(mime, length);
+		QSharedPointer<RemoteResourceInfo> info(new RemoteResourceInfo(mime, length));
 
 		callback->success(info);
 

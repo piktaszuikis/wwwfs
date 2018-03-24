@@ -24,7 +24,7 @@ struct FuseDirEntryBuf
 	~FuseDirEntryBuf()
 	{
 		memset(name, 0, strlen(name));
-		delete name;
+		free(name);
 	}
 };
 
