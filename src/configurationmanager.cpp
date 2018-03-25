@@ -1,3 +1,5 @@
+#include <QStandardPaths>
+
 #include "configurationmanager.h"
 #include "fs/humanreadablerenderer.h"
 
@@ -32,6 +34,16 @@ namespace ConfigurationManager
 	long cacheRamLength()
 	{
 		return 1000;
+	}
+
+	QString cacheDiskDirectory()
+	{
+		return QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+	}
+
+	qint64 cacheDiskSize()
+	{
+		return 1024L * 1024 * 200; //200 MB
 	}
 
 

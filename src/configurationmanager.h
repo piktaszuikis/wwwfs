@@ -14,6 +14,9 @@ namespace ConfigurationManager
 	long cacheRamSize();
 	long cacheRamLength();
 
+	QString cacheDiskDirectory();
+	qint64 cacheDiskSize();
+
 }
 
 

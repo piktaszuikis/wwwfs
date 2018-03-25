@@ -1,6 +1,7 @@
 #include "httpclient.h"
 #include "configurationmanager.h"
 #include <QNetworkReply>
+#include <QNetworkDiskCache>
 
 #define PROP_REPLY_DATA "reply_data"
 
@@ -67,6 +68,17 @@ HttpClient::HttpClient(QObject *parent)
 {
 	_manager = new QNetworkAccessManager(this);
 	_cache = new ContentCache();
+
+	if(!ConfigurationManager::cacheDiskDirectory().isEmpty() && ConfigurationManager::cacheDiskSize() > 0)
+	{
+		QNetworkDiskCache *diskCache = new QNetworkDiskCache(this);
+		diskCache->setCacheDirectory(ConfigurationManager::cacheDiskDirectory());
+		diskCache->setMaximumCacheSize(ConfigurationManager::cacheDiskSize());
+
+		qDebug() << "Using disk cache " << ConfigurationManager::cacheDiskSize() << ConfigurationManager::cacheDiskDirectory();
+
+		_manager->setCache(diskCache);
+	}
 }
 
 void HttpClient::get(QUrl url, ICallbackWithArgument<QByteArray> *callback)
