@@ -48,7 +48,7 @@ void CacheTest::cacheInfo()
 
 	{
 		QSharedPointer<RemoteResourceInfo> info(new TestRemoteResourceInfo("text/html", 200, isDeleted));
-		item->cacheInfo(info);
+		item->setInfo(info);
 	}
 
 	QVERIFY(item->info() != nullptr);
@@ -66,11 +66,11 @@ void CacheTest::isDataCachedFully()
 
 	QVERIFY2(!item->isDataCachedFully(), "Data without info is not assumed as 'cached fully'.");
 
-	item->cacheInfo(QSharedPointer<RemoteResourceInfo>(new RemoteResourceInfo("text/numbers", data.count())));
+	item->setInfo(QSharedPointer<RemoteResourceInfo>(new RemoteResourceInfo("text/numbers", data.count())));
 
 	QVERIFY(item->isDataCachedFully());
 
-	item->cacheInfo(QSharedPointer<RemoteResourceInfo>(new RemoteResourceInfo("text/numbers", data.count() + 2)));
+	item->setInfo(QSharedPointer<RemoteResourceInfo>(new RemoteResourceInfo("text/numbers", data.count() + 2)));
 
 	QVERIFY(!item->isDataCachedFully());
 
@@ -123,7 +123,7 @@ void CacheTest::dataFull()
 	CachedItem *item = new CachedItem();
 
 	item->cacheData(0, data);
-	item->cacheInfo(QSharedPointer<RemoteResourceInfo>(new RemoteResourceInfo("text/numbers", data.count())));
+	item->setInfo(QSharedPointer<RemoteResourceInfo>(new RemoteResourceInfo("text/numbers", data.count())));
 
 	QCOMPARE(item->dataFull(), data);
 }
@@ -139,7 +139,7 @@ void CacheTest::data()
 	item->cacheData(0, data1);
 	item->cacheData(4, data2);
 
-	item->cacheInfo(QSharedPointer<RemoteResourceInfo>(new RemoteResourceInfo("text/numbers", 8)));
+	item->setInfo(QSharedPointer<RemoteResourceInfo>(new RemoteResourceInfo("text/numbers", 8)));
 
 	QCOMPARE(item->data(0, 4), QByteArray("1234"));
 	QCOMPARE(item->data(3, 4), QByteArray("45sd"));

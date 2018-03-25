@@ -1,10 +1,9 @@
 #ifndef READACTION_H
 #define READACTION_H
 
-#include "syncaction.h"
-#include "../http/icontentcallback.h"
+#include "action.h"
 
-class ReadAction : public SyncAction
+class ReadAction : public Action
 {
 public:
 	ReadAction(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi, Controller *controller);

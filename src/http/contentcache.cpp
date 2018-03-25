@@ -71,7 +71,7 @@ void ContentCache::cacheResourceInfo(QUrl url, QSharedPointer<RemoteResourceInfo
 	if(!_cache.contains(url))
 		_cache[url] = new CachedItem();
 
-	_cache[url]->cacheInfo(info);
+	_cache[url]->setInfo(info);
 
 	cleanup();
 }

@@ -7,13 +7,13 @@
 
 typedef struct stat Stat;
 
-/*abstract*/ class SyncAction : public QObject
+/*abstract*/ class Action : public QObject
 {
 	Q_OBJECT
 
 public:
-	SyncAction(fuse_req_t req, Controller *controller);
-	virtual ~SyncAction();
+	Action(fuse_req_t req, Controller *controller);
+	virtual ~Action();
 
 protected:
 	int finishWithError(int error);

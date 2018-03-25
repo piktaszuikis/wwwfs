@@ -1,9 +1,9 @@
 #ifndef READDIRACTION_H
 #define READDIRACTION_H
 
-#include "syncaction.h"
+#include "action.h"
 
-class ReadDirAction : public SyncAction
+class ReadDirAction : public Action
 {
 	Q_OBJECT
 

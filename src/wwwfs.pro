@@ -42,7 +42,7 @@ SOURCES += controller.cpp \
     http/cache/cacheditem.cpp \
     http/cache/cachedpiece.cpp
 
-HEADERS += actions/syncaction.h \
+HEADERS += \
 	actions/readdiraction.h \
 	actions/openaction.h \
 	actions/lookupaction.h \
@@ -58,7 +58,6 @@ HEADERS += actions/syncaction.h \
 	http/httpclient.h \
 	http/httpparser.h \
 	http/httpitem.h \
-	http/icontentcallback.h \
 	http/contentcache.h \
 	controller.h \
     http/htmlloader.h \
@@ -68,9 +67,17 @@ HEADERS += actions/syncaction.h \
     icallback.h \
     callbackwithargumentanddata.h \
     http/cache/cacheditem.h \
-    http/cache/cachedpiece.h
+    http/cache/cachedpiece.h \
+    actions/action.h
 
 DEFINES += "FUSE_USE_VERSION=31"
+
+CONFIG(debug, debug|release) {
+	# DEBUG ONLY
+	QMAKE_CXXFLAGS += -fsanitize=address -fno-omit-frame-pointer
+	QMAKE_CFLAGS   += -fsanitize=address -fno-omit-frame-pointer
+	QMAKE_LFLAGS   += -fsanitize=address
+}
 
 # HTML parser:
 
@@ -80,5 +87,3 @@ INCLUDEPATH += $$PWD/../libs/QGumboParser/QGumboParser
 DEPENDPATH += $$PWD/../libs/QGumboParser/QGumboParser
 
 unix: PRE_TARGETDEPS += $$OUT_PWD/../libs/QGumboParser/QGumboParser/libQGumboParser.a
-
-

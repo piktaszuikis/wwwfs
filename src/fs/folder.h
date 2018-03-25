@@ -12,6 +12,7 @@ public:
 
 	const QList<ContentItem *> contents() const;
 	Folder *addContent(ContentItem * item);
+
 	ContentItem *getByName(QString name);
 
 	bool isLoaded() const;

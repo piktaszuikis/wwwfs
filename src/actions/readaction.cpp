@@ -3,7 +3,7 @@
 #include <QDebug>
 
 ReadAction::ReadAction(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, fuse_file_info *fi, Controller *controller)
-	: SyncAction(req, controller), _ino(ino), _size(size), _off(off)
+	: Action(req, controller), _ino(ino), _size(size), _off(off)
 {
 	Q_UNUSED(fi);
 	startAsync();

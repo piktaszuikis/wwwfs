@@ -5,7 +5,6 @@
 
 #include "icallback.h"
 #include "contentcache.h"
-#include "icontentcallback.h"
 #include "remoteresourceinfo.h"
 
 class HttpClient : public QObject

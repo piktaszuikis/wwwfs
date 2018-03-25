@@ -3,7 +3,7 @@
 #include "callback.h"
 
 ReadDirAction::ReadDirAction(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, fuse_file_info *fi, Controller *controller)
-	: SyncAction(req, controller), _off(off), _size(size), _folder(0)
+	: Action(req, controller), _off(off), _size(size), _folder(0)
 {
 	Q_UNUSED(fi);
 

@@ -1,9 +1,9 @@
 #ifndef LOOKUPACTION_H
 #define LOOKUPACTION_H
 
-#include "syncaction.h"
+#include "action.h"
 
-class LookupAction : public SyncAction
+class LookupAction : public Action
 {
 public:
 	LookupAction(fuse_req_t req, fuse_ino_t parent, const char *name, Controller *controller);

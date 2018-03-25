@@ -4,7 +4,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>342</x>
+      <x>540</x>
       <y>369</y>
       <w>216</w>
       <h>171</h>
@@ -25,12 +25,12 @@ _+ get() : *Controller_</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>882</x>
-      <y>621</y>
+      <x>1080</x>
+      <y>612</y>
       <w>279</w>
-      <h>162</h>
+      <h>216</h>
     </coordinates>
-    <panel_attributes>/SyncAction/
+    <panel_attributes>/Action/
 --
 - controller : *Controller
 --
@@ -40,26 +40,17 @@ _+ get() : *Controller_</panel_attributes>
 #finishWithOpen(file_info)
 #finishWithBuffer(data)
 
-cotroller() : *Controller
-contentContainer() : *ContentContainer</panel_attributes>
+#startAsync()
+/#asyncAction()/
+
+#cotroller() : *Controller
+#contentContainer() : *ContentContainer</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1098</x>
-      <y>909</y>
-      <w>153</w>
-      <h>54</h>
-    </coordinates>
-    <panel_attributes>/AsyncAction/
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>711</x>
+      <x>891</x>
       <y>909</y>
       <w>108</w>
       <h>36</h>
@@ -70,20 +61,26 @@ contentContainer() : *ContentContainer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>837</x>
+      <x>1116</x>
       <y>909</y>
-      <w>108</w>
-      <h>36</h>
+      <w>144</w>
+      <h>99</h>
     </coordinates>
-    <panel_attributes>LookupAction</panel_attributes>
+    <panel_attributes>LookupAction
+--
+- parent: Folder
+- name : char*
+--
+- success()
+- error(msg: QString)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>963</x>
+      <x>1008</x>
       <y>909</y>
-      <w>108</w>
+      <w>99</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>OpenAction</panel_attributes>
@@ -92,95 +89,98 @@ contentContainer() : *ContentContainer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1062</x>
-      <y>1035</y>
-      <w>108</w>
-      <h>36</h>
+      <x>1269</x>
+      <y>909</y>
+      <w>189</w>
+      <h>126</h>
     </coordinates>
-    <panel_attributes>ReadAction</panel_attributes>
+    <panel_attributes>ReadAction
+--
+- ino: fuse_ino_t
+- size : size_t
+- off: off_t
+--
+- success(data: QByteArray)
+- error(msg: QString)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1197</x>
-      <y>1035</y>
-      <w>108</w>
-      <h>36</h>
+      <x>1467</x>
+      <y>909</y>
+      <w>162</w>
+      <h>126</h>
     </coordinates>
-    <panel_attributes>ReadDirAction</panel_attributes>
+    <panel_attributes>ReadDirAction
+--
+- size : size_t
+- off: off_t
+- folder: Folder*
+--
+- success()
+- error(msg: QString)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1008</x>
-      <y>774</y>
-      <w>189</w>
-      <h>153</h>
+      <x>1206</x>
+      <y>819</y>
+      <w>135</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0;190.0;70.0;190.0;150.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;130.0;50.0;130.0;100.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>756</x>
-      <y>774</y>
-      <w>279</w>
-      <h>153</h>
+      <x>936</x>
+      <y>819</y>
+      <w>297</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>290.0;10.0;290.0;70.0;10.0;70.0;10.0;150.0</additional_attributes>
+    <additional_attributes>310.0;10.0;310.0;50.0;10.0;50.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>882</x>
-      <y>774</y>
-      <w>153</w>
-      <h>153</h>
+      <x>1053</x>
+      <y>819</y>
+      <w>180</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>150.0;10.0;150.0;70.0;10.0;70.0;10.0;150.0</additional_attributes>
+    <additional_attributes>180.0;10.0;180.0;50.0;10.0;50.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1008</x>
-      <y>774</y>
+      <x>1206</x>
+      <y>819</y>
       <w>27</w>
-      <h>153</h>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1161</x>
-      <y>954</y>
-      <w>108</w>
-      <h>99</h>
+      <x>1206</x>
+      <y>819</y>
+      <w>333</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;50.0;100.0;50.0;100.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;350.0;50.0;350.0;100.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1107</x>
-      <y>954</y>
-      <w>81</w>
-      <h>99</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>70.0;10.0;70.0;50.0;10.0;50.0;10.0;90.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>549</x>
+      <x>747</x>
       <y>396</y>
       <w>243</w>
       <h>450</h>
@@ -192,7 +192,7 @@ Uses concreate actions</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>27</x>
+      <x>225</x>
       <y>333</y>
       <w>180</w>
       <h>63</h>
@@ -205,7 +205,7 @@ Uses concreate actions</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>198</x>
+      <x>396</x>
       <y>369</y>
       <w>162</w>
       <h>36</h>
@@ -217,7 +217,7 @@ via fuse context</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1080</x>
+      <x>1278</x>
       <y>153</y>
       <w>315</w>
       <h>162</h>
@@ -237,10 +237,10 @@ via fuse context</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>675</x>
+      <x>873</x>
       <y>531</y>
-      <w>684</w>
-      <h>558</h>
+      <w>774</w>
+      <h>567</h>
     </coordinates>
     <panel_attributes>Actions
 --
@@ -250,7 +250,7 @@ layer=-1</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>666</x>
+      <x>864</x>
       <y>99</y>
       <w>1170</w>
       <h>360</h>
@@ -263,10 +263,10 @@ layer=-1</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>1458</x>
-      <y>549</y>
-      <w>657</w>
-      <h>468</h>
+      <x>1683</x>
+      <y>531</y>
+      <w>1071</w>
+      <h>567</h>
     </coordinates>
     <panel_attributes>HTTP
 --
@@ -276,17 +276,16 @@ layer=-1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>828</x>
+      <x>1026</x>
       <y>153</y>
       <w>189</w>
-      <h>135</h>
+      <h>117</h>
     </coordinates>
     <panel_attributes>/ContentItem/
 --
 + name : QString
 + parent : *Folder
 + url : QUrl
-+ isLoaded : bool
 + nodeID : fuse_ino_t
 --
 + wfuse_stat() : *struct stat</panel_attributes>
@@ -295,7 +294,7 @@ layer=-1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1008</x>
+      <x>1206</x>
       <y>171</y>
       <w>90</w>
       <h>36</h>
@@ -307,28 +306,28 @@ m1=*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>963</x>
+      <x>1161</x>
       <y>360</y>
       <w>162</w>
-      <h>72</h>
+      <h>54</h>
     </coordinates>
     <panel_attributes>File
 --
-+ size : size_t
-+ content : QByteArray</panel_attributes>
++ size : size_t</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>684</x>
+      <x>882</x>
       <y>360</y>
       <w>252</w>
-      <h>72</h>
+      <h>81</h>
     </coordinates>
     <panel_attributes>Folder
 --
 + contents : List&lt;*ContentItem&gt;
++ isLoaded : bool
 --
 getByName(name) : *ContentItem</panel_attributes>
     <additional_attributes/>
@@ -336,29 +335,29 @@ getByName(name) : *ContentItem</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>792</x>
-      <y>279</y>
+      <x>990</x>
+      <y>261</y>
       <w>153</w>
-      <h>99</h>
+      <h>117</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>150.0;10.0;150.0;50.0;10.0;50.0;10.0;90.0</additional_attributes>
+    <additional_attributes>150.0;10.0;150.0;70.0;10.0;70.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>918</x>
-      <y>279</y>
+      <x>1116</x>
+      <y>261</y>
       <w>144</w>
-      <h>99</h>
+      <h>117</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;50.0;140.0;50.0;140.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;140.0;70.0;140.0;110.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1458</x>
+      <x>1656</x>
       <y>144</y>
       <w>288</w>
       <h>207</h>
@@ -383,7 +382,7 @@ getByName(name) : *ContentItem</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1638</x>
+      <x>1836</x>
       <y>0</y>
       <w>243</w>
       <h>63</h>
@@ -396,7 +395,7 @@ rendering options.</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1359</x>
+      <x>1557</x>
       <y>396</y>
       <w>225</w>
       <h>27</h>
@@ -407,7 +406,7 @@ rendering options.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1458</x>
+      <x>1656</x>
       <y>342</y>
       <w>144</w>
       <h>72</h>
@@ -418,7 +417,7 @@ rendering options.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1386</x>
+      <x>1584</x>
       <y>171</y>
       <w>90</w>
       <h>27</h>
@@ -429,7 +428,7 @@ rendering options.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1629</x>
+      <x>1827</x>
       <y>54</y>
       <w>108</w>
       <h>108</h>
@@ -440,7 +439,7 @@ rendering options.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>549</x>
+      <x>747</x>
       <y>0</y>
       <w>639</w>
       <h>423</h>
@@ -451,8 +450,8 @@ rendering options.</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1890</x>
-      <y>594</y>
+      <x>1953</x>
+      <y>747</y>
       <w>144</w>
       <h>126</h>
     </coordinates>
@@ -461,6 +460,7 @@ rendering options.</panel_attributes>
 + htmlTag : QString
 + title : QString
 + alt : QString
++ mime : QString
 + url : QUrl
 + size : size_t
 </panel_attributes>
@@ -469,7 +469,7 @@ rendering options.</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1611</x>
+      <x>1809</x>
       <y>396</y>
       <w>189</w>
       <h>27</h>
@@ -481,7 +481,7 @@ fg=gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1575</x>
+      <x>1773</x>
       <y>342</y>
       <w>135</w>
       <h>72</h>
@@ -492,46 +492,47 @@ fg=gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1737</x>
+      <x>1935</x>
       <y>207</y>
-      <w>234</w>
-      <h>405</h>
+      <w>198</w>
+      <h>558</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>240.0;430.0;180.0;210.0;10.0;10.0</additional_attributes>
+    <additional_attributes>100.0;600.0;200.0;280.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1503</x>
+      <x>1701</x>
       <y>603</y>
-      <w>135</w>
-      <h>63</h>
+      <w>225</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>HttpClient
 --
---
-fg=gray</panel_attributes>
++ get(url, callback)
++ get(url, offset, size, callback)
++ getInfo(url, callback)
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1503</x>
-      <y>783</y>
-      <w>135</w>
-      <h>63</h>
+      <x>1710</x>
+      <y>1017</y>
+      <w>315</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>Parser
 --
---
-fg=gray</panel_attributes>
++ parse(baseUrl, htmlText) : QList&lt;HttpItem&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>162</x>
+      <x>360</x>
       <y>198</y>
       <w>180</w>
       <h>36</h>
@@ -543,7 +544,7 @@ fg=gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>0</x>
+      <x>198</x>
       <y>225</y>
       <w>270</w>
       <h>126</h>
@@ -555,7 +556,7 @@ Initialized from command line arguments</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>333</x>
+      <x>531</x>
       <y>198</y>
       <w>180</w>
       <h>81</h>
@@ -567,7 +568,7 @@ m1=used globally</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>405</x>
+      <x>603</x>
       <y>306</y>
       <w>90</w>
       <h>27</h>
@@ -579,7 +580,7 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>441</x>
+      <x>639</x>
       <y>324</y>
       <w>27</w>
       <h>63</h>
@@ -590,7 +591,7 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>981</x>
+      <x>1179</x>
       <y>558</y>
       <w>90</w>
       <h>27</h>
@@ -603,12 +604,327 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1017</x>
+      <x>1215</x>
       <y>576</y>
+      <w>27</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1458</x>
+      <y>0</y>
+      <w>243</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Contains all folders and files in a
+hash for fast access.
+Adding and removing must be done
+via this class.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1476</x>
+      <y>63</y>
+      <w>99</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;100.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2133</x>
+      <y>585</y>
+      <w>378</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>ContentCache
+--
+cache : QHash&lt;QUrl, CachedItem*&gt;
+--
++ isContentCached(url) : bool
++ isContentCached(url, offset, size) : bool
++ isResourceInfoCached(url): bool
+
++ getContent(url) : QByteArray
++ getContent(url, offset, size) : QByteArray
+
++ cacheContent(url, offset, data : QByteArray)
++ cacheResourceInfo(url, RemoteResourceInfo *info)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1710</x>
+      <y>909</y>
+      <w>234</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>HtmlLoader
+--
+- callback : ICallback
+- controller: Controller
+- folder: Folder
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2583</x>
+      <y>657</y>
+      <w>153</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>RemoteResourceInfo
+--
++ mime : QString
++ size : size_t</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2448</x>
+      <y>819</y>
+      <w>189</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>CachedPiece
+--
++ lastAccess : QDateTime
++ data : QByteArray
++ offset : off_t
+--
++ end() : off_t</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2133</x>
+      <y>819</y>
+      <w>261</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>CachedItem
+--
++ lastAccess : QDateTime
++ info : *RemoteResourceInfo
++ data : QList&lt;CachedPiece*&gt;
++ usedMemorySize : size_t
+--
++ isDataCachedFully()
++ isDataCached(offset, size)
++ data() : QByteArray
++ data(offset, size) : QByteArray
++ cacheData(offset, data : QByteArray)
++ remove(memorySizeToFree: long)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1917</x>
+      <y>639</y>
+      <w>234</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>240.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1719</x>
+      <y>684</y>
+      <w>27</w>
+      <h>243</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1620</x>
+      <y>945</y>
+      <w>108</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1422</x>
+      <y>684</y>
+      <w>324</w>
+      <h>243</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>340.0;10.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1233</x>
+      <y>684</y>
+      <w>513</w>
+      <h>243</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>550.0;10.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1782</x>
+      <y>972</y>
       <w>27</w>
       <h>63</h>
     </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2295</x>
+      <y>765</y>
+      <w>45</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1998</x>
+      <y>864</y>
+      <w>27</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2385</x>
+      <y>846</y>
+      <w>81</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1746</x>
+      <y>729</y>
+      <w>153</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Gets html of the 
+folder using HttpCliet,
+parses it with Parser
+and returns HttpItem* 
+via callback.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1863</x>
+      <y>810</y>
+      <w>27</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2583</x>
+      <y>594</y>
+      <w>144</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Used to cache mime
+and content-length</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2619</x>
+      <y>630</y>
+      <w>72</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;30.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1737</x>
+      <y>558</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>/QObject/
+
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1773</x>
+      <y>576</y>
+      <w>27</w>
+      <h>45</h>
+    </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1773</x>
+      <y>855</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>/QObject/
+
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1809</x>
+      <y>873</y>
+      <w>27</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
   </element>
 </diagram>

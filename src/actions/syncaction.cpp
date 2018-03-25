@@ -1,6 +1,6 @@
-#include "syncaction.h"
+#include "action.h"
 
-SyncAction::SyncAction(fuse_req_t req, Controller *controller)
+Action::Action(fuse_req_t req, Controller *controller)
 	:_req(req), _isFinished(false), _asyncStarted(false), _controller(controller)
 {
 	if(!controller)
@@ -10,14 +10,14 @@ SyncAction::SyncAction(fuse_req_t req, Controller *controller)
 	}
 }
 
-SyncAction::~SyncAction()
+Action::~Action()
 {
 	_isFinished = true;
 	_controller= nullptr;
 	_req = nullptr;
 }
 
-int SyncAction::finishWithError(int error)
+int Action::finishWithError(int error)
 {
 	if(_isFinished)
 		return -1;
@@ -27,7 +27,7 @@ int SyncAction::finishWithError(int error)
 	return fuse_reply_err(_req, error);
 }
 
-int SyncAction::finishWithAttr(const Stat *attr, double attr_timeout)
+int Action::finishWithAttr(const Stat *attr, double attr_timeout)
 {
 	if(_isFinished)
 		return -1;
@@ -37,7 +37,7 @@ int SyncAction::finishWithAttr(const Stat *attr, double attr_timeout)
 	return fuse_reply_attr(_req, attr, attr_timeout);
 }
 
-int SyncAction::finishWithEntry(const fuse_entry_param *e)
+int Action::finishWithEntry(const fuse_entry_param *e)
 {
 	if(_isFinished)
 		return -1;
@@ -47,7 +47,7 @@ int SyncAction::finishWithEntry(const fuse_entry_param *e)
 	return fuse_reply_entry(_req, e);
 }
 
-int SyncAction::finishWithOpen(const fuse_file_info *fi)
+int Action::finishWithOpen(const fuse_file_info *fi)
 {
 	if(_isFinished)
 		return -1;
@@ -57,7 +57,7 @@ int SyncAction::finishWithOpen(const fuse_file_info *fi)
 	return fuse_reply_open(_req, fi);
 }
 
-int SyncAction::finishWithBuffer(const char *buf, size_t size)
+int Action::finishWithBuffer(const char *buf, size_t size)
 {
 	if(_isFinished)
 		return -1;
@@ -67,7 +67,7 @@ int SyncAction::finishWithBuffer(const char *buf, size_t size)
 	return fuse_reply_buf(_req, buf, size);
 }
 
-int SyncAction::finishWithBuffer(QByteArray data)
+int Action::finishWithBuffer(QByteArray data)
 {
 	if(data.isEmpty())
 		return finishWithBuffer(0, 0);
@@ -75,24 +75,24 @@ int SyncAction::finishWithBuffer(QByteArray data)
 	return finishWithBuffer(data.constData(), data.size());
 }
 
-void SyncAction::startAsync()
+void Action::startAsync()
 {
 	if(_asyncStarted)
 		return;
 	_asyncStarted = true;
 
 	moveToThread(controller());
-	connect(this, &SyncAction::_doStartAsync, this, &SyncAction::doRunAsync, Qt::QueuedConnection);
+	connect(this, &Action::_doStartAsync, this, &Action::doRunAsync, Qt::QueuedConnection);
 	emit _doStartAsync();
 }
 
-void SyncAction::doRunAsync()
+void Action::doRunAsync()
 {
-	disconnect(this, &SyncAction::_doStartAsync, this, &SyncAction::doRunAsync);
+	disconnect(this, &Action::_doStartAsync, this, &Action::doRunAsync);
 	asyncAction();
 }
 
-void SyncAction::asyncAction()
+void Action::asyncAction()
 {
 
 }

@@ -14,7 +14,7 @@ public:
 	CachedItem();
 	virtual ~CachedItem();
 
-	inline void cacheInfo(QSharedPointer<RemoteResourceInfo> info) { _info = info; }
+	inline void setInfo(QSharedPointer<RemoteResourceInfo> info) { _info = info; }
 	QSharedPointer<RemoteResourceInfo> info();
 
 	bool isDataCachedFully();

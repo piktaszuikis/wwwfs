@@ -1,7 +1,7 @@
 #include "openaction.h"
 
 OpenAction::OpenAction(fuse_req_t req, fuse_ino_t ino, fuse_file_info *fi, Controller *controller)
-	: SyncAction(req, controller)
+	: Action(req, controller)
 {
 	if((fi->flags & O_ACCMODE) != O_RDONLY)
 	{
