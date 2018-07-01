@@ -35,7 +35,6 @@ SOURCES += controller.cpp \
 	http/contentcache.cpp \
 	http/httpclient.cpp \
 	http/httpitem.cpp \
-	http/icontentcallback.cpp \
 	main.cpp \
     http/htmlloader.cpp \
     http/remoteresourceinfo.cpp \
@@ -71,13 +70,6 @@ HEADERS += \
     actions/action.h
 
 DEFINES += "FUSE_USE_VERSION=31"
-
-CONFIG(debug, debug|release) {
-	# DEBUG ONLY
-	QMAKE_CXXFLAGS += -fsanitize=address -fno-omit-frame-pointer
-	QMAKE_CFLAGS   += -fsanitize=address -fno-omit-frame-pointer
-	QMAKE_LFLAGS   += -fsanitize=address
-}
 
 # HTML parser:
 

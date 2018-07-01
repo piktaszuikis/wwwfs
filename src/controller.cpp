@@ -65,31 +65,5 @@ void Controller::run()
 	_content = new ContentContainer();
 	_http = new HttpClient();
 
-
-
-
-
-	/*
-
-	//TODO: remove
-	Folder *root = _content->getFolderByID(FUSE_ROOT_ID);
-
-	{
-		auto add = _content->beginAdd(root);
-
-		QByteArray data = "Textas 1 asdf\n";
-		File *file = dynamic_cast<File*>(add->addItem(new HttpItem("txt", "tekstas.txt", "", QUrl("https://127.0.0.1/aa.txt"), data.size())));
-		file->setContent(data);
-		file->setIsLoaded(true);
-
-
-		data = "Textas 2 asdf\n";
-		file = dynamic_cast<File*>(add->addItem(new HttpItem("txt", "", "", QUrl("https://127.0.0.1/aa1.txt"), data.size())));
-		file->setContent(data);
-		file->setIsLoaded(true);
-
-	}
-*/
-
 	exec();
 }

@@ -36,21 +36,53 @@ static void init(void *userdata, struct fuse_conn_info *)
 	Controller::get(userdata)->start();
 }
 
+static void show_help(const char *program)
+{
+	fprintf(stderr, "usage: %s <url> <mountpoint> [options]\n\n", program);
+
+	fprintf(stderr,
+			"general options:\n"
+			"    url              the address of a page to mount (https://www.example.org)\n"
+			"    -o opt,[opt...]  mount options\n"
+			"\n"
+			"wwwfs options:\n"
+	);
+
+//	fprintf(stderr, "    -o renderer=            type of renderer to use\n");
+
+	fprintf(stderr,
+			"    -o cache-ram-size=NUM   how much RAM to use for caching. Accepts a number with a unit (default: %s)\n"
+			"    -o cache-ram-length=NUM how many items to keep in memory (default: %ld)\n"
+			"    -o cache-disk-size=NUM  how much disk space to use for caching. Accepts a number with a\n"
+			"                            unit. If 0 - disk cache will be disabled. (default: %s)\n"
+			"    -o cache-disk-path=NUM  where to store disk cache (default: %s)\n"
+			"    -o avoid-thumbnails     skip links, containing substring 'thumb'\n"
+			"\nfuse options:\n"
+			,
+			ConfigurationManager::defaultRamSize,
+			ConfigurationManager::defaultRamLength,
+			ConfigurationManager::defaultDiskSize,
+			ConfigurationManager::defaultDiskDirectory
+	);
+
+	fuse_cmdline_help();
+	fuse_lowlevel_help();
+}
+
 int main(int argc, char *argv[])
 {
 	QCoreApplication app(argc, argv);
 	//QThread::sleep(2);
 
 	struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
+	ConfigurationManager::init(&args);
 
 	struct fuse_cmdline_opts opts;
 	int ret = -1;
 	if (fuse_parse_cmdline(&args, &opts) != 0)
 		return 1;
 	if (opts.show_help) {
-		printf("usage: %s [options] <mountpoint>\n\n", argv[0]);
-		fuse_cmdline_help();
-		fuse_lowlevel_help();
+		show_help(argv[0]);
 		ret = 0;
 		goto err_out1;
 	} else if (opts.show_version) {

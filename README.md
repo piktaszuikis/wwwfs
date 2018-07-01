@@ -9,7 +9,7 @@ There are other projects that are trying to achieve something simmilar, but thes
 
 # Current state
 
-Implemented HTML parsing prototype using [QGumboParser](https://github.com/lagner/QGumboParser). Http client rewritten with Promis-like callbacks. Implemented cache and tests. By the look of it, everything works fine.
+Implemented HTML parsing prototype using [QGumboParser](https://github.com/lagner/QGumboParser). Http client rewritten with Promise-like callbacks. Implemented cache and tests. By the look of it, everything works fine.
 
 ~~Everything works 95% of time. There is still probably a bug in caching or http client.~~
 

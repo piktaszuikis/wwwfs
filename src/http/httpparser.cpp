@@ -5,6 +5,7 @@
 #include <qgumbodocument.h>
 #include <qgumbonode.h>
 #include <functional>
+#include "../configurationmanager.h"
 
 //https://github.com/lagner/QGumboParser
 
@@ -19,7 +20,7 @@ public:
 
 	void addResult(HttpItem *item)
 	{
-		if(item && !wasAdded(item->getUrl()))
+		if(item && !wasAdded(item->getUrl()) && !isFiltered(item->getUrl()))
 		{
 			setWasAdded(item->getUrl());
 			_result.append(item);
@@ -29,6 +30,17 @@ public:
 	QUrl resolved(QString url)
 	{
 		return _documentRoot.resolved(url).adjusted(QUrl::RemoveFragment);
+	}
+
+	bool isFiltered(const QUrl &url)
+	{
+		if(ConfigurationManager::isAvoidThumbnails())
+		{
+			if(url.path().contains("thumb", Qt::CaseInsensitive))
+				return true;
+		}
+
+		return false;
 	}
 
 	bool wasAdded(const QUrl &url)

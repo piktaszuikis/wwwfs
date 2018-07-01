@@ -6,9 +6,14 @@
 
 namespace ConfigurationManager
 {
-	void init();
-	RendererBase *createRenderer(ContentContainer *container, Folder *parent);
+	static const char *defaultRamSize = "200MB";
+	static const long defaultRamLength = 10000L;
+	static const char *defaultDiskSize = "400MB";
+	static const char *defaultDiskDirectory = "~/.cache/wwwfs";
+
+	void init(struct fuse_args *args);
 	QUrl rootUrl();
+	RendererBase *createRenderer(ContentContainer *container, Folder *parent);
 
 	int sampleSize();
 	long cacheRamSize();
@@ -16,6 +21,7 @@ namespace ConfigurationManager
 
 	QString cacheDiskDirectory();
 	qint64 cacheDiskSize();
+	bool isAvoidThumbnails();
 
 }
 
