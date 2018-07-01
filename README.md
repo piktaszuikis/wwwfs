@@ -26,11 +26,12 @@ Implemented HTML parsing prototype using [QGumboParser](https://github.com/lagne
 ~~Currently project is in "proof of concept" state. For now it only allows reading files in a very inefficient way and there is no folder support.~~
 
 TODO:
-* Parameter parsing
 * Support more HTML tags
 * Symlink support
 * create virtual file _index.html for debugging reasons
 * DBus progress indicator???
+* virtual ERROR file???
+* Parameter validation
 
 # Required libs
 * libfuse (fuse3)
