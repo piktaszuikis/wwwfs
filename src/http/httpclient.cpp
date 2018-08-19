@@ -1,5 +1,6 @@
 #include "httpclient.h"
 #include "configurationmanager.h"
+#include "networkreplytimeout.h"
 #include <QNetworkReply>
 #include <QNetworkDiskCache>
 
@@ -61,10 +62,19 @@ QNetworkRequest createRequest(QUrl &url){
 	return request;
 }
 
+QNetworkReply *createReply(QNetworkReply *reply){
+	if(reply)
+	{
+		NetworkReplyTimeout::set(reply, ConfigurationManager::requestTimeoutMs());
+	}
+
+	return reply;
+}
+
 //---------------
 
 HttpClient::HttpClient(QObject *parent)
-	: QObject(parent), _manager(0)
+	: QObject(parent), _manager(nullptr)
 {
 	_manager = new QNetworkAccessManager(this);
 	_cache = new ContentCache();
@@ -74,8 +84,6 @@ HttpClient::HttpClient(QObject *parent)
 		QNetworkDiskCache *diskCache = new QNetworkDiskCache(this);
 		diskCache->setCacheDirectory(ConfigurationManager::cacheDiskDirectory());
 		diskCache->setMaximumCacheSize(ConfigurationManager::cacheDiskSize());
-
-		qDebug() << "Using disk cache " << ConfigurationManager::cacheDiskSize() << ConfigurationManager::cacheDiskDirectory();
 
 		_manager->setCache(diskCache);
 	}
@@ -98,7 +106,7 @@ void HttpClient::get(QUrl url, ICallbackWithArgument<QByteArray> *callback)
 	QNetworkRequest request = createRequest(url);
 	qDebug() << "[GET]" << url.toString(QUrl::None);
 
-	QNetworkReply *reply = _manager->get(request);
+	QNetworkReply *reply = createReply(_manager->get(request));
 
 	reply->connect(reply, &QNetworkReply::finished, [this, url, callback, reply]
 	{
@@ -130,9 +138,9 @@ void HttpClient::get(QUrl url, qlonglong offset, qlonglong size, ICallbackWithAr
 	if(size < 0)
 		throw "ArgumentInvalidException: size must be >= 0";
 
-	if(_cache->isContentCached(url, offset, size))
+	if(_cache->isContentCached(url, offset, static_cast<size_t>(size)))
 	{
-		callback->success(_cache->getContent(url, offset, size));
+		callback->success(_cache->getContent(url, offset, static_cast<size_t>(size)));
 		return;
 	}
 
@@ -140,7 +148,7 @@ void HttpClient::get(QUrl url, qlonglong offset, qlonglong size, ICallbackWithAr
 	qDebug() << QString("[GET Range: %1-%2]").arg(offset).arg(offset + size) << url.toString(QUrl::None);
 	request.setRawHeader("Range", QString("bytes=%1-%2").arg(offset).arg(offset + size).toUtf8());
 
-	QNetworkReply *reply = _manager->get(request);
+	QNetworkReply *reply = createReply(_manager->get(request));
 	reply->setReadBufferSize(ConfigurationManager::sampleSize());
 
 	reply->connect(reply, &QNetworkReply::readyRead, [this, url, offset, size, callback, reply]
@@ -172,7 +180,7 @@ void HttpClient::getInfo(QUrl url, ICallbackWithArgument<QSharedPointer<RemoteRe
 	QNetworkRequest request = createRequest(url);
 	qDebug() << "[HEAD]" << url.toString(QUrl::None);
 
-	QNetworkReply *reply = _manager->head(request);
+	QNetworkReply *reply = createReply(_manager->head(request));
 	reply->connect(reply, &QNetworkReply::finished, [this, reply, callback, url]
 	{
 		if(reply->error() == QNetworkReply::NoError)
@@ -228,7 +236,7 @@ void HttpClient::getContent(QUrl url, qlonglong offset, qlonglong size, ICallbac
 	if((fullData->size() >= expectedSize && !isRangeSupported) || reply->isFinished())
 	{
 		_cache->cacheContent(url, isRangeSupported ? offset : 0, *fullData);
-		callback->success(fullData->mid(isRangeSupported ? 0 : offset, size));
+		callback->success(fullData->mid(isRangeSupported ? 0 : static_cast<int>(offset), static_cast<int>(size)));
 
 		if(!isRangeSupported)
 			reply->abort();
@@ -242,7 +250,7 @@ void HttpClient::getInfoFromContent(QUrl url, ICallbackWithArgument<QSharedPoint
 {
 	QNetworkRequest request = createRequest(url);
 	qDebug() << "[GET]" << url.toString(QUrl::None);
-	QNetworkReply *reply = _manager->get(request);
+	QNetworkReply *reply = createReply(_manager->get(request));
 
 	reply->connect(reply, &QNetworkReply::finished, [this, url, callback, reply]
 	{
@@ -264,7 +272,7 @@ void HttpClient::getInfoFromContent(QUrl url, ICallbackWithArgument<QSharedPoint
 
 	QByteArray data = reply->readAll();
 	_cache->cacheContent(url, 0, data);
-	int length = data.length();
+	size_t length = static_cast<size_t>(data.length());
 
 	if(!mime.isNull())
 	{

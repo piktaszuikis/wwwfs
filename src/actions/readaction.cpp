@@ -20,7 +20,7 @@ void ReadAction::asyncAction()
 {
 	File *file = contentContainer()->getFileByID(_ino);
 	if(file)
-		controller()->http()->get(file->getUrl(), _off, _size, new CallbackWithArgument<ReadAction, QByteArray>(this, &ReadAction::success, &ReadAction::error));
+		controller()->http()->get(file->getUrl(), _off, static_cast<qlonglong>(_size), new CallbackWithArgument<ReadAction, QByteArray>(this, &ReadAction::success, &ReadAction::error));
 	else
 		finishWithError(ENOENT);
 }

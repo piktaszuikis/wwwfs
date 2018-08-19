@@ -35,15 +35,15 @@ bool CachedItem::isDataCached(off_t offset, size_t size)
 
 	if(info())
 	{
-		if((long long)offset > (long long)info()->size)
+		if(static_cast<long long>(offset) > static_cast<long long>(info()->size))
 			return true;
 
-		if(offset + size > info()->size)
-			size = info()->size - offset;
+		if(offset + static_cast<long>(size) > static_cast<long>(info()->size))
+			size = static_cast<size_t>(static_cast<long>(info()->size) - offset);
 	}
 
 	int i = 0;
-	long end = offset + size;
+	long end = offset + static_cast<long>(size);
 	//find first intersection
 	for(; i < _data.count(); i++)
 	{
@@ -100,15 +100,15 @@ QByteArray CachedItem::data(off_t offset, size_t size)
 
 	if(info())
 	{
-		if((long long)offset > (long long)info()->size)
+		if(static_cast<long>(offset) > static_cast<long>(info()->size))
 			return result;
 
-		if(offset + size > info()->size)
-			size = info()->size - offset;
+		if(offset + static_cast<long>(size) > static_cast<long>(info()->size))
+			size = static_cast<size_t>(static_cast<long>(info()->size) - offset);
 	}
 
 	int i = 0;
-	long end = offset + size;
+	long end = offset + static_cast<long>(size);
 	//find first intersection
 	for(; i < _data.count(); i++)
 	{
@@ -123,15 +123,15 @@ QByteArray CachedItem::data(off_t offset, size_t size)
 	{
 		auto data = _data[i++];
 
-		int start = offset > data->offset() ? offset - data->offset() : 0;
-		int len = data->end() < end ? -1 : end - qMax(offset, data->offset());
+		long start = offset > data->offset() ? offset - data->offset() : 0L;
+		long len = data->end() < end ? -1 : end - qMax(offset, data->offset());
 
 		data->setAccessed();
 
 		if(start == 0 && len == -1)
 			result.append(data->data());
 		else
-			result.append(data->data().mid(start, len));
+			result.append(data->data().mid(static_cast<int>(start), static_cast<int>(len)));
 	}
 
 	return result;
@@ -139,7 +139,7 @@ QByteArray CachedItem::data(off_t offset, size_t size)
 
 void CachedItem::cacheData(off_t offset, QByteArray data)
 {
-	if(offset == 0 && info() && info()->size == (size_t)data.size())
+	if(offset == 0 && info() && info()->size == static_cast<size_t>(data.size()))
 	{
 		while(!_data.isEmpty())
 			delete _data.takeLast();
@@ -169,7 +169,7 @@ void CachedItem::cacheData(off_t offset, QByteArray data)
 				}
 				else
 				{
-					_data.insert(i++, new CachedPiece(offset, data.mid(index, len)));
+					_data.insert(i++, new CachedPiece(offset, data.mid(index, static_cast<int>(len))));
 				}
 			}
 
@@ -190,7 +190,7 @@ size_t CachedItem::usedMemorySize()
 	{
 		foreach (auto item, _data)
 		{
-			size += item->data().size();
+			size += static_cast<size_t>(item->data().size());
 		}
 	}
 

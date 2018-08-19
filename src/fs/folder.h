@@ -8,7 +8,7 @@ class Folder : public ContentItem
 {
 public:
 	Folder(fuse_ino_t node_id, QString name, QUrl url);
-	virtual ~Folder();
+	virtual ~Folder() override;
 
 	const QList<ContentItem *> contents() const;
 	Folder *addContent(ContentItem * item);

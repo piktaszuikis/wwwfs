@@ -39,7 +39,8 @@ SOURCES += controller.cpp \
     http/htmlloader.cpp \
     http/remoteresourceinfo.cpp \
     http/cache/cacheditem.cpp \
-    http/cache/cachedpiece.cpp
+    http/cache/cachedpiece.cpp \
+    http/networkreplytimeout.cpp
 
 HEADERS += \
 	actions/readdiraction.h \
@@ -67,7 +68,8 @@ HEADERS += \
     callbackwithargumentanddata.h \
     http/cache/cacheditem.h \
     http/cache/cachedpiece.h \
-    actions/action.h
+    actions/action.h \
+    http/networkreplytimeout.h
 
 DEFINES += "FUSE_USE_VERSION=31"
 

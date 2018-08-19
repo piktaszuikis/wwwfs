@@ -7,7 +7,7 @@ class LookupAction : public Action
 {
 public:
 	LookupAction(fuse_req_t req, fuse_ino_t parent, const char *name, Controller *controller);
-	virtual ~LookupAction();
+	virtual ~LookupAction() override;
 
 protected:
 	virtual void asyncAction() override;

@@ -57,12 +57,14 @@ static void show_help(const char *program)
 			"                            unit. If 0 - disk cache will be disabled. (default: %s)\n"
 			"    -o cache-disk-path=NUM  where to store disk cache (default: %s)\n"
 			"    -o avoid-thumbnails     skip links, containing substring 'thumb'\n"
+			"    -o timeout=NUM          default timeout for HTTP requests in milliseconds (default: %d ms)\n"
 			"\nfuse options:\n"
 			,
 			ConfigurationManager::defaultRamSize,
 			ConfigurationManager::defaultRamLength,
 			ConfigurationManager::defaultDiskSize,
-			ConfigurationManager::defaultDiskDirectory
+			ConfigurationManager::defaultDiskDirectory,
+			ConfigurationManager::defaultRequestTimeoutMs
 	);
 
 	fuse_cmdline_help();
@@ -102,7 +104,7 @@ int main(int argc, char *argv[])
 		fs_opererations.read    = hello_ll_read2;
 
 		struct fuse_session *se = fuse_session_new(&args, &fs_opererations, sizeof(fs_opererations), new Controller());
-		if (se == NULL)
+		if (se == nullptr)
 			goto err_out1;
 		if (fuse_set_signal_handlers(se) != 0)
 			goto err_out2;

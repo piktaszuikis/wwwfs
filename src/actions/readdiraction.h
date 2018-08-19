@@ -9,7 +9,7 @@ class ReadDirAction : public Action
 
 public:
 	ReadDirAction(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi, Controller *controller);
-	virtual ~ReadDirAction();
+	virtual ~ReadDirAction() override;
 
 protected:
 	virtual void asyncAction() override;

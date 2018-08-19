@@ -27,7 +27,7 @@ ContentItem *RendererBase::addItem(HttpItem *item)
 			return addContent(createFile(item));
 	}
 
-	return 0;
+	return nullptr;
 }
 
 RendererBase::~RendererBase()
@@ -73,7 +73,7 @@ bool RendererBase::hasName(QString name)
 	if(name == "." || name == "..") //these names are reserved!
 		return true;
 
-	return _parent->getByName(name) != 0;
+	return _parent->getByName(name) != nullptr;
 }
 
 bool RendererBase::hasUrlInParent(QUrl url)

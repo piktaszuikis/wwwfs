@@ -126,7 +126,7 @@ long ContentCache::removeOldest()
 		qDebug() << "[UNCACHE full]" << key.toString(QUrl::None);
 
 		auto item = _cache.take(key);
-		freedMemorySize = item->usedMemorySize();
+		freedMemorySize = static_cast<long>(item->usedMemorySize());
 		delete item;
 	}
 

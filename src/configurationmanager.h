@@ -10,6 +10,7 @@ namespace ConfigurationManager
 	static const long defaultRamLength = 10000L;
 	static const char *defaultDiskSize = "400MB";
 	static const char *defaultDiskDirectory = "~/.cache/wwwfs";
+	static const int defaultRequestTimeoutMs = 5000;
 
 	void init(struct fuse_args *args);
 	QUrl rootUrl();
@@ -22,6 +23,7 @@ namespace ConfigurationManager
 	QString cacheDiskDirectory();
 	qint64 cacheDiskSize();
 	bool isAvoidThumbnails();
+	int requestTimeoutMs();
 
 }
 

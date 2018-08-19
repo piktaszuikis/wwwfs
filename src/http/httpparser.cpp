@@ -56,8 +56,10 @@ public:
 
 	QList<HttpItem *> takeResult()
 	{
-		return _result;
+		QList<HttpItem *>result = _result;
 		delete this;
+
+		return result;
 	}
 
 private:

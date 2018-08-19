@@ -7,7 +7,7 @@
 #include "actions/readdiraction.h"
 
 Controller::Controller()
-	: _content(0), _http(0)
+	: _content(nullptr), _http(nullptr)
 {
 
 }

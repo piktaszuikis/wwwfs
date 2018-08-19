@@ -70,9 +70,9 @@ int Action::finishWithBuffer(const char *buf, size_t size)
 int Action::finishWithBuffer(QByteArray data)
 {
 	if(data.isEmpty())
-		return finishWithBuffer(0, 0);
+		return finishWithBuffer(nullptr, 0);
 
-	return finishWithBuffer(data.constData(), data.size());
+	return finishWithBuffer(data.constData(), static_cast<size_t>(data.size()));
 }
 
 void Action::startAsync()

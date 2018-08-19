@@ -8,14 +8,14 @@ struct FuseDirEntryBuf
 	size_t size;
 	struct stat stat;
 
-	FuseDirEntryBuf(ContentItem *item, const char *name = 0)
+	FuseDirEntryBuf(ContentItem *item, const char *name = nullptr)
 	{
 		if(name)
 			this->name = strdup(name);
 		else
 			this->name = strdup(item->name().toUtf8().constData());
 
-		this->size = fuse_add_direntry(0, NULL, 0, this->name, NULL, 0);
+		this->size = fuse_add_direntry(nullptr, nullptr, 0, this->name, nullptr, 0);
 		this->stat = {};
 
 		item->wfuse_stat(&this->stat);
@@ -75,7 +75,7 @@ ContentItem *Folder::getByName(QString name)
 			return item;
 	};
 
-	return 0;
+	return nullptr;
 }
 
 bool Folder::isLoaded() const
@@ -121,17 +121,17 @@ QByteArray Folder::wfuse_get_direntries()
 		{
 			auto item = sizeMap.at(i);
 
-			fuse_add_direntry(0, buf + offset, total_size - offset, item->name, &item->stat, offset + item->size);
+			fuse_add_direntry(nullptr, buf + offset, total_size - static_cast<size_t>(offset), item->name, &item->stat, offset + static_cast<off_t>(item->size));
 			offset += item->size;
 		}
 
 		auto item = sizeMap.last();
-		fuse_add_direntry(0, buf + offset, total_size - offset, item->name, &item->stat, -1);
+		fuse_add_direntry(nullptr, buf + offset, total_size - static_cast<size_t>(offset), item->name, &item->stat, -1);
 
 		while (!sizeMap.isEmpty())
 			delete sizeMap.takeFirst();
 
-		_fuseDirentryCache = QByteArray(buf, total_size);
+		_fuseDirentryCache = QByteArray(buf, static_cast<int>(total_size));
 
 		memset(buf, 0, total_size);
 		delete[] buf;

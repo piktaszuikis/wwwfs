@@ -16,6 +16,7 @@ namespace ConfigurationManager
 	long _diskSize;
 	QString _diskCacheDirectory;
 	bool _avoidThumbnails;
+	int _requestTimeout;
 
 	struct args_config {
 		char *ramSize;
@@ -23,6 +24,7 @@ namespace ConfigurationManager
 		char *diskSize;
 		char *diskPath;
 		int avoidThumbnails;
+		int requestTimeout;
 	};
 
 	#define FS_OPT(t, p, v) { t, offsetof(struct args_config, p), v }
@@ -34,6 +36,7 @@ namespace ConfigurationManager
 		FS_OPT("cache-disk-size=%s", diskSize, 0),
 		FS_OPT("cache-disk-path=%s", diskPath, 0),
 		FS_OPT("avoid-thumbnails", avoidThumbnails, 1),
+		FS_OPT("timeout", requestTimeout, defaultRequestTimeoutMs),
 		FUSE_OPT_END
 	};
 
@@ -82,24 +85,27 @@ namespace ConfigurationManager
 		struct args_config conf = {};
 		fuse_opt_parse(args, &conf, option_parser_list, parse_option);
 
-		if(!_url.isEmpty())
-		{
-			if(_url.scheme().isEmpty()){
-				qDebug() << "[URL]" << _url.toString(QUrl::None);
-				_url = "https://" + _url.toString(QUrl::None);
-				qDebug() << "[URL]" << _url.toString(QUrl::None);
-				//_url.setScheme("https");
-			}
-		}
+		if(!_url.isEmpty() && _url.scheme().isEmpty())
+			_url = "https://" + _url.toString(QUrl::None);
 
 		_ramLength = conf.ramLength > 0 ? conf.ramLength : defaultRamLength;
 		_ramSize = parseBytes(conf.ramSize, defaultRamSize);
 		_diskSize = parseBytes(conf.diskSize, defaultDiskSize);
 		_diskCacheDirectory = QString(conf.diskPath);
 		_avoidThumbnails = conf.avoidThumbnails != 0;
+		_requestTimeout = conf.requestTimeout ? conf.requestTimeout : defaultRequestTimeoutMs;
 
 		if(_diskCacheDirectory.isEmpty())
 			_diskCacheDirectory = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+
+		qDebug() << "Using options:";
+		qDebug() << "\t URL:" << _url.toString();
+		qDebug() << "\t cache-ram-size:" << _ramSize << "bytes";
+		qDebug() << "\t cache-ram-length:" << _ramLength << "items";
+		qDebug() << "\t cache-disk-size:" << _diskSize << "bytes";
+		qDebug() << "\t cache-disk-path:" << _diskCacheDirectory;
+		qDebug() << "\t avoid-thumbnails:" << !!_avoidThumbnails;
+		qDebug() << "\t timeout:" << _requestTimeout << "ms.";
 	}
 
 	RendererBase *createRenderer(ContentContainer *container, Folder *parent)
@@ -140,6 +146,11 @@ namespace ConfigurationManager
 	bool isAvoidThumbnails()
 	{
 		return _avoidThumbnails;
+	}
+
+	int requestTimeoutMs()
+	{
+		return _requestTimeout;
 	}
 
 }

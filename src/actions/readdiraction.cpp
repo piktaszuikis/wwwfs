@@ -3,7 +3,7 @@
 #include "callback.h"
 
 ReadDirAction::ReadDirAction(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, fuse_file_info *fi, Controller *controller)
-	: Action(req, controller), _off(off), _size(size), _folder(0)
+	: Action(req, controller), _off(off), _size(size), _folder(nullptr)
 {
 	Q_UNUSED(fi);
 
@@ -47,13 +47,13 @@ void ReadDirAction::success()
 
 		if(!entries.isEmpty())
 		{
-			if(_off == 0 && _size > (size_t)entries.size())
+			if(_off == 0 && _size > static_cast<size_t>(entries.size()))
 			{
-				finishWithBuffer(entries.constData(), entries.size());
+				finishWithBuffer(entries.constData(), static_cast<size_t>(entries.size()));
 			}
 			else
 			{
-				auto data = entries.mid(_off, _size);
+				auto data = entries.mid(static_cast<int>(_off), static_cast<int>(_size));
 				finishWithBuffer(data);
 			}
 		}

@@ -6,7 +6,7 @@
 #define MAX_TIMEOUT 10000
 
 LookupAction::LookupAction(fuse_req_t req, fuse_ino_t parentID, const char *name, Controller *controller)
-	: Action(req, controller), _parent(0), _name(0)
+	: Action(req, controller), _parent(nullptr), _name(nullptr)
 {
 	_name = name;
 	_parent = contentContainer()->getFolderByID(parentID);

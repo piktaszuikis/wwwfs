@@ -14,5 +14,5 @@ size_t File::size() const
 void File::wfuse_apply_stat(struct stat *st)
 {
 	st->st_mode = S_IFREG | (S_IRUSR | S_IRGRP | S_IROTH);
-	st->st_size = size();
+	st->st_size = static_cast<__off_t>(size());
 }

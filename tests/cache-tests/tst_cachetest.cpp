@@ -35,6 +35,7 @@ private slots:
 	void cacheDataTwo();
 	void cacheDataTwoIntersecting();
 	void cacheDataTwoWithGap();
+	void cacheStartOverlay();
 
 	void usedMemorySize();
 	void remove();
@@ -217,6 +218,22 @@ void CacheTest::cacheDataTwoWithGap()
 	QCOMPARE(item->data(6, 2), QByteArray("5y"));
 	QCOMPARE(item->data(1, 1000), QByteArray("a1df45y"));
 	QVERIFY(item->isDataCached(2, 6) == true);
+}
+
+void CacheTest::cacheStartOverlay()
+{
+	//Piece one  : 12_______
+	//Piece two  : 1234_____
+	//Piece three: ____abcde
+	//Content:     1234abcde
+
+	CachedItem *item = new CachedItem();
+	item->cacheData(0, QByteArray("12"));
+	item->cacheData(0, QByteArray("1234"));
+	item->cacheData(4, QByteArray("abcde"));
+
+	QCOMPARE(item->data(0, 1000), QByteArray("1234abcde"));
+	QVERIFY(item->isDataCached(0, 9) == true);
 }
 
 void CacheTest::usedMemorySize()

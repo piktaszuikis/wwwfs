@@ -6,6 +6,7 @@
 class ICallbackBase
 {
 public:
+	virtual ~ICallbackBase() {}
 	virtual void error(QString) = 0;
 };
 
