@@ -46,8 +46,11 @@ cd build
 qmake ../main.pro
 make
 ```
+executable will be located in the 'src' directory (*wwwfs/build/src/wwwfs*).
 
 # Using
 ```
-./wwwfs munt_point
+./wwwfs --help
+./wwwfs www.example.com mount_point
+./wwwfs -o avoid-thumbnails 370chan.lt/a mount_point
 ```
