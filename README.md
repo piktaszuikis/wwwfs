@@ -40,9 +40,10 @@ TODO:
 # Compiling
 ```
 cd wwwfs
+git submodule update --init --recursive
 mkdir build
 cd build
-cmake ../src
+qmake ../main.pro
 make
 ```
 
