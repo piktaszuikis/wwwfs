@@ -73,6 +73,10 @@ HEADERS += \
 
 DEFINES += "FUSE_USE_VERSION=31"
 
+contains(QT_ARCH, i386) {
+    DEFINES += "_FILE_OFFSET_BITS=64"
+}
+
 # HTML parser:
 
 unix: LIBS += -L$$OUT_PWD/../libs/QGumboParser/QGumboParser/ -lQGumboParser
