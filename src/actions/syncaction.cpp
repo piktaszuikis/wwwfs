@@ -75,6 +75,17 @@ int Action::finishWithBuffer(QByteArray data)
 	return finishWithBuffer(data.constData(), static_cast<size_t>(data.size()));
 }
 
+int Action::finishWithLink(QString link)
+{
+	if(_isFinished)
+		return -1;
+
+	_isFinished = true;
+	deleteLater();
+
+	return fuse_reply_readlink(_req, link.toUtf8().constData());
+}
+
 void Action::startAsync()
 {
 	if(_asyncStarted)

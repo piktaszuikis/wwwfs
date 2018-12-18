@@ -10,13 +10,19 @@
 
 namespace ConfigurationManager
 {
-	QUrl _url;
-	long _ramSize;
-	long _ramLength;
-	long _diskSize;
-	QString _diskCacheDirectory;
-	bool _avoidThumbnails;
-	int _requestTimeout;
+	const char *defaultRamSize = "200MB";
+	const long defaultRamLength = 10000L;
+	const char *defaultDiskSize = "400MB";
+	const char *defaultDiskDirectory = "~/.cache/wwwfs";
+	const int defaultRequestTimeoutMs = 5000;
+
+	static QUrl _url;
+	static long _ramSize;
+	static long _ramLength;
+	static long _diskSize;
+	static QString _diskCacheDirectory;
+	static bool _avoidThumbnails;
+	static int _requestTimeout;
 
 	struct args_config {
 		char *ramSize;

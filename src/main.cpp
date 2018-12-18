@@ -6,27 +6,32 @@
 #include "configurationmanager.h"
 #include "controller.h"
 
-static void hello_ll_getattr2(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi)
+static void wwwfs_getattr(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi)
 {
 	Controller::get(req)->getAttr(req, ino, fi);
 }
 
-static void hello_ll_lookup2(fuse_req_t req, fuse_ino_t parent, const char *name)
+static void wwwfs_lookup(fuse_req_t req, fuse_ino_t parent, const char *name)
 {
 	Controller::get(req)->lookup(req, parent, name);
 }
 
-static void hello_ll_open2(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi)
+static void wwwfs_open(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi)
 {
 	Controller::get(req)->open(req, ino, fi);
 }
 
-static void hello_ll_read2(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi)
+static void wwwfs_read(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi)
 {
 	Controller::get(req)->read(req, ino, size, off, fi);
 }
 
-static void hello_ll_readdir2(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi)
+static void wwwfs_readlink(fuse_req_t req, fuse_ino_t ino)
+{
+	Controller::get(req)->readLink(req, ino);
+}
+
+static void wwwfs_readdir(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi)
 {
 	Controller::get(req)->readDir(req, ino, size, off, fi);
 }
@@ -96,12 +101,13 @@ int main(int argc, char *argv[])
 
 	{
 		struct fuse_lowlevel_ops fs_opererations = { };
-		fs_opererations.init    = init;
-		fs_opererations.lookup  = hello_ll_lookup2;
-		fs_opererations.getattr = hello_ll_getattr2;
-		fs_opererations.readdir = hello_ll_readdir2;
-		fs_opererations.open    = hello_ll_open2;
-		fs_opererations.read    = hello_ll_read2;
+		fs_opererations.init     = init;
+		fs_opererations.lookup   = wwwfs_lookup;
+		fs_opererations.getattr  = wwwfs_getattr;
+		fs_opererations.readdir  = wwwfs_readdir;
+		fs_opererations.open     = wwwfs_open;
+		fs_opererations.read     = wwwfs_read;
+		fs_opererations.readlink = wwwfs_readlink;
 
 		struct fuse_session *se = fuse_session_new(&args, &fs_opererations, sizeof(fs_opererations), new Controller());
 		if (se == nullptr)

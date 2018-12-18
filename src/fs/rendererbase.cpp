@@ -17,9 +17,7 @@ ContentItem *RendererBase::addItem(HttpItem *item)
 	{
 		auto existing = _container->getByUrl(item->getUrl());
 		if(existing)
-		{
-			//TODO: return symlink
-		}
+			return addContent(createSymlink(item, existing));
 
 		if(isFolder(item))
 			return addContent(createFolder(item));

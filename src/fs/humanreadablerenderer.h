@@ -13,6 +13,7 @@ protected:
 	bool isFolder(HttpItem *item) override;
 	ContentItem *createFile(HttpItem *item) override;
 	ContentItem *createFolder(HttpItem *item) override;
+	ContentItem *createSymlink(HttpItem *item, ContentItem *existing) override;
 
 private:
 	QString getName(HttpItem *item);

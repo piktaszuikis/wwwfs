@@ -15,7 +15,7 @@ public:
 	void open(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi);
 	void read(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi);
 	void readDir(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi);
-
+	void readLink(fuse_req_t req, fuse_ino_t ino);
 
 	inline ContentContainer *contentContainer() const { return _content; }
 	inline HttpClient * http() const { return _http; }

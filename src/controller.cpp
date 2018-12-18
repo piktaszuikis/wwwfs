@@ -5,6 +5,7 @@
 #include "actions/openaction.h"
 #include "actions/readaction.h"
 #include "actions/readdiraction.h"
+#include "actions/readlinkaction.h"
 
 Controller::Controller()
 	: _content(nullptr), _http(nullptr)
@@ -35,6 +36,11 @@ void Controller::read(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, fu
 void Controller::readDir(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, fuse_file_info *fi)
 {
 	new ReadDirAction(req, ino, size, off, fi, this);
+}
+
+void Controller::readLink(fuse_req_t req, fuse_ino_t ino)
+{
+	new ReadLinkAction(req, ino, this);
 }
 
 Controller *Controller::get(fuse_req_t req)

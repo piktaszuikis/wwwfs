@@ -1,3 +1,4 @@
+#include <QDir>
 #include "contentitem.h"
 #include "folder.h"
 
@@ -79,4 +80,31 @@ struct stat *ContentItem::wfuse_stat()
 	}
 
 	return _cachedStat;
+}
+
+QString ContentItem::filename()
+{
+	QString path = this->path();
+
+	if(!path.isEmpty() && !name().isEmpty())
+		return path + QDir::separator() + name();
+
+	return QString();
+}
+
+QString ContentItem::path()
+{
+	QString path;
+	Folder *parent = this->parent();
+
+	if(parent)
+	{
+		do
+		{
+			path = QDir::separator() + parent->name() + path;
+			parent = parent->parent();
+		} while(parent);
+	}
+
+	return path;
 }

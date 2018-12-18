@@ -4,7 +4,6 @@
 #include <fuse_lowlevel.h>
 #include "../http/httpitem.h"
 #include "folder.h"
-#include "file.h"
 
 class ContentContainer;
 
@@ -24,6 +23,7 @@ protected:
 	virtual bool isFolder(HttpItem *item) = 0;
 	virtual ContentItem *createFile(HttpItem *item) = 0;
 	virtual ContentItem *createFolder(HttpItem *item) = 0;
+	virtual ContentItem *createSymlink(HttpItem *item, ContentItem *existing) = 0;
 
 	virtual QString getUniqueName(QString suggested);
 	virtual bool hasName(QString name);

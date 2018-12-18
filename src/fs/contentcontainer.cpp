@@ -24,6 +24,11 @@ Folder *ContentContainer::getFolderByID(fuse_ino_t node_id)
 	return dynamic_cast<Folder *>(getByID(node_id));
 }
 
+Symlink *ContentContainer::getSymlinkByID(fuse_ino_t node_id)
+{
+	return dynamic_cast<Symlink *>(getByID(node_id));
+}
+
 ContentItem *ContentContainer::getByUrl(QUrl url)
 {
 	return _urlMap.value(url);

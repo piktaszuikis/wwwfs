@@ -8,6 +8,7 @@
 #include <fuse_lowlevel.h>
 #include "folder.h"
 #include "file.h"
+#include "symlink.h"
 #include "rendererbase.h"
 
 class ContentContainer
@@ -18,6 +19,7 @@ public:
 	ContentItem *getByID(fuse_ino_t node_id);
 	File *getFileByID(fuse_ino_t node_id);
 	Folder *getFolderByID(fuse_ino_t node_id);
+	Symlink *getSymlinkByID(fuse_ino_t node_id);
 
 	ContentItem *getByUrl(QUrl url);
 

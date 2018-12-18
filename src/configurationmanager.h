@@ -6,11 +6,11 @@
 
 namespace ConfigurationManager
 {
-	static const char *defaultRamSize = "200MB";
-	static const long defaultRamLength = 10000L;
-	static const char *defaultDiskSize = "400MB";
-	static const char *defaultDiskDirectory = "~/.cache/wwwfs";
-	static const int defaultRequestTimeoutMs = 5000;
+	extern const char *defaultRamSize;
+	extern const long defaultRamLength;
+	extern const char *defaultDiskSize;
+	extern const char *defaultDiskDirectory;
+	extern const int defaultRequestTimeoutMs;
 
 	void init(struct fuse_args *args);
 	QUrl rootUrl();
@@ -26,7 +26,5 @@ namespace ConfigurationManager
 	int requestTimeoutMs();
 
 }
-
-
 
 #endif // CONFIGURATIONMANAGER_H

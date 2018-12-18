@@ -27,6 +27,9 @@ public:
 	void wfuse_stat(struct stat *st);
 	struct stat *wfuse_stat();
 
+	QString filename();
+	QString path();
+
 protected:
 	void clearCache();
 	virtual void wfuse_apply_stat(struct stat *st) = 0;

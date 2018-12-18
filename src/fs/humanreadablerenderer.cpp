@@ -1,11 +1,12 @@
 #include "humanreadablerenderer.h"
+#include "file.h"
+#include "symlink.h"
 
 HumanReadableRenderer::HumanReadableRenderer(ContentContainer *container, Folder *parent)
 	:RendererBase(container, parent)
 {
 
 }
-
 
 bool HumanReadableRenderer::isFolder(HttpItem *item)
 {
@@ -20,6 +21,11 @@ ContentItem *HumanReadableRenderer::createFile(HttpItem *item)
 ContentItem *HumanReadableRenderer::createFolder(HttpItem *item)
 {
 	return new Folder(nextID(), getName(item), item->getUrl());
+}
+
+ContentItem *HumanReadableRenderer::createSymlink(HttpItem *item, ContentItem *existing)
+{
+	return new Symlink(nextID(), getName(item), existing);
 }
 
 QString HumanReadableRenderer::getName(HttpItem *item)

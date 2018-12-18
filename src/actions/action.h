@@ -22,6 +22,7 @@ protected:
 	int finishWithOpen(const struct fuse_file_info *fi);
 	int finishWithBuffer(const char *buf, size_t size);
 	int finishWithBuffer(QByteArray data);
+	int finishWithLink(QString link);
 
 	void startAsync();
 	virtual void asyncAction();
