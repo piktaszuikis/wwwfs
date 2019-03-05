@@ -34,6 +34,8 @@ private slots:
 	void cacheDataOne();
 	void cacheDataTwo();
 	void cacheDataTwoIntersecting();
+	void cacheDataThreeIntersecting();
+	void cacheDataThreeIntersectingGap();
 	void cacheDataTwoWithGap();
 	void cacheStartOverlay();
 
@@ -182,6 +184,25 @@ void CacheTest::cacheDataTwo()
 
 void CacheTest::cacheDataTwoIntersecting()
 {
+	//Piece one  : 1234___
+	//Piece two  : __asdf_
+	//Content:     1234df_
+
+	CachedItem *item = new CachedItem();
+	QByteArray data1("1234");
+	QByteArray data2("asdf");
+
+	item->cacheData(0, data1);
+	item->cacheData(2, data2);
+
+	QVERIFY(item->isDataCached(0, 6) == true);
+	QCOMPARE(item->data(0, 4), QByteArray("1234"));
+	QCOMPARE(item->data(4, 2), QByteArray("df"));
+	QCOMPARE(item->data(0, 1000), QByteArray("1234df"));
+}
+
+void CacheTest::cacheDataThreeIntersecting()
+{
 	//Piece one  : __123____
 	//Piece two  : ____asdf_
 	//Piece three: ______yz_
@@ -200,6 +221,28 @@ void CacheTest::cacheDataTwoIntersecting()
 	QCOMPARE(item->data(2, 3), QByteArray("123"));
 	QCOMPARE(item->data(6, 2), QByteArray("df"));
 	QCOMPARE(item->data(2, 1000), QByteArray("123sdf"));
+}
+
+void CacheTest::cacheDataThreeIntersectingGap()
+{
+	//Piece one  : __12______
+	//Piece two  : ________#_
+	//Piece three: ___abc____
+	//Content:     __12bc__#_
+
+	CachedItem *item = new CachedItem();
+	QByteArray data1("12");
+	QByteArray data2("#");
+	QByteArray data3("abc");
+
+	item->cacheData(2, data1);
+	item->cacheData(8, data2);
+	item->cacheData(3, data3);
+
+	QVERIFY(item->isDataCached(2, 4) == true);
+	QCOMPARE(item->data(2, 4), QByteArray("12bc"));
+	QCOMPARE(item->data(8, 1), QByteArray("#"));
+	QCOMPARE(item->data(2, 1000), QByteArray("12bc#"));
 }
 
 void CacheTest::cacheDataTwoWithGap()

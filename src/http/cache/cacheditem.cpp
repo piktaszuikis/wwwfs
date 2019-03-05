@@ -163,7 +163,7 @@ void CachedItem::cacheData(off_t offset, QByteArray data)
 			{
 				if(len >= data.size())
 				{
-					_data.insert(i++, new CachedPiece(offset, data));
+					_data.insert(i++, new CachedPiece(offset, data.mid(index)));
 					index += len;
 					break;
 				}
